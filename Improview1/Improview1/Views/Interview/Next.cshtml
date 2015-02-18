@@ -1,0 +1,43 @@
+﻿@model Improview1.Models.Question
+
+@{
+    ViewBag.Title = "Interview";
+}
+
+<script type="text/javascript">
+    $("#submitButton").live("click", function () {
+        $.get($(this), function (response) {
+            $("#interview").replaceWith($("#interview", response));
+        });
+        return false;
+    });
+</script>
+
+<div class="jumbotron" style="height: 500px; min-height: 100%; max-height: 100%">
+    <div id="interview">
+        @using (Html.BeginForm("Next", "Interview", new { interviewId = ViewBag.interviewId, questionNum = Model.Number }, FormMethod.Post))
+        {
+            <fieldset>
+
+                @Html.HiddenFor(x => x.QuestionID)
+
+                <p>Question #@Html.DisplayFor(x => x.Number)</p>
+
+                <h1>@Model.Text</h1>
+
+                <p>Type Your Answer:</p>
+                
+                @Html.TextBox("answerText")
+
+                <!--
+                    1) Record user video and audio
+                    2) Store as blob
+                    3) Write to DB (later, Azure)
+                -->
+
+                <input type="submit" value="Next" id="submitButton" />
+
+            </fieldset>
+        }
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Improview1.Models.Interview>
+
+@{
+    ViewBag.Title = "Interview";
+}
+<div class="jumbotron" style="height: 500px; min-height: 100%; max-height: 100%">
+    <h1 style="text-align: center">Improview</h1>
+    <p class="lead" style="text-align: center; margin-top: 80px; margin-bottom: 80px">Choose an interview for a job title below and click Start to begin</p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions)
+            </th>
+            <th>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterviewID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Questions.Count)
+                </td>
+                <td>
+                    @Html.ActionLink("Start", "Next", "Interview", new { interviewId = item.InterviewID, questionNum = 0 }, new { @class = "btn btn-primary btn-lg" }) &raquo;
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
