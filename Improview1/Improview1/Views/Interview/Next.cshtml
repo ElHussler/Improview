@@ -4,40 +4,67 @@
     ViewBag.Title = "Interview";
 }
 
-<script type="text/javascript">
-    $("#submitButton").live("click", function () {
-        $.get($(this), function (response) {
-            $("#interview").replaceWith($("#interview", response));
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+    <script type="text/javascript">
+        $("#submitButton").live("click", function () {
+            $.get($(this), function (response) {
+                $("#interview").replaceWith($("#interview", response));
+            });
+            return false;
         });
-        return false;
-    });
-</script>
+    </script>
 
-<div class="jumbotron" style="height: 500px; min-height: 100%; max-height: 100%">
-    <div id="interview">
-        @using (Html.BeginForm("Next", "Interview", new { interviewId = ViewBag.interviewId, questionNum = Model.Number }, FormMethod.Post))
-        {
-            <fieldset>
+    <!-- script used for audio/video/gif recording -->
+    <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"> </script>
+    <!--<script src="~/Scripts/recordRTC.js" type="text/javascript"> </script>-->
+</head>
+<body>
+    <div class="jumbotron" style="height: 500px; min-height: 100%; max-height: 100%">
+        <div id="interview" class="col-md-6">
+            @using (Html.BeginForm("Next", "Interview", new { interviewId = ViewBag.interviewId, questionNum = Model.Number }, FormMethod.Post))
+            {
+                <fieldset>
 
-                @Html.HiddenFor(x => x.QuestionID)
+                    @Html.HiddenFor(x => x.QuestionID)
 
-                <p>Question #@Html.DisplayFor(x => x.Number)</p>
+                    <p>Question #@Html.DisplayFor(x => x.Number)</p>
 
-                <h1>@Model.Text</h1>
+                    <h2>@Model.Text</h2>
 
-                <p>Type Your Answer:</p>
-                
-                @Html.TextBox("answerText")
+                    <p>Type Your Answer:</p>
 
-                <!--
-                    1) Record user video and audio
-                    2) Store as blob
-                    3) Write to DB (later, Azure)
-                -->
+                    @Html.TextBox("answerText")
+                    <br />
+                    <input type="submit" value="Next" id="submitButton" />
 
-                <input type="submit" value="Next" id="submitButton" />
+                    <!--
+                        1) Record video
+                        2) store video blob in folder on server
+                        3) store location ref in answer database entity?
+                    -->
 
-            </fieldset>
-        }
+                </fieldset>
+            }
+        </div>
+
+        <div id="interviewVid" class="col-md-6">
+            <p style="text-align:center;">
+                <video id="preview" controls style="border: 1px solid rgb(15, 158, 238); height: 375px; width: 500px;"></video>
+            </p>
+            <hr />
+
+            <button id="record">Record</button>
+            <button id="stop" disabled>Stop</button>
+            <button id="delete" disabled>Delete files from Server</button>
+        </div>
+        <div id="container" style="padding:1em 2em;"></div>
+
     </div>
-</div>
+
+    <script src="@Url.Content("~/Scripts/recordRTC.js")" type="text/javascript"> </script>
+
+</body>
+</html>

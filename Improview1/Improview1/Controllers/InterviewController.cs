@@ -10,6 +10,7 @@ using Improview1.DAL;
 using Improview1.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
 
 namespace Improview1.Controllers
 {
@@ -82,6 +83,31 @@ namespace Improview1.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+        }
+
+        [HttpPost]
+        public ActionResult PostRecordedAudioVideo()
+        {
+            foreach (string upload in Request.Files)
+            {
+                var path = AppDomain.CurrentDomain.BaseDirectory + "uploads/";
+                var file = Request.Files[upload];
+                if (file == null) continue;
+
+                file.SaveAs(Path.Combine(path, Request.Form[0]));
+            }
+
+            //return RedirectToAction("Next");
+            return Json(Request.Form[0]);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteFile()
+        {
+            var fileUrl = AppDomain.CurrentDomain.BaseDirectory + "uploads/" + Request.Form["delete-file"];
+            new FileInfo(fileUrl + ".wav").Delete();
+            new FileInfo(fileUrl + ".webm").Delete();
+            return Json(true);
         }
 
         public ActionResult Finish(int interviewId)
