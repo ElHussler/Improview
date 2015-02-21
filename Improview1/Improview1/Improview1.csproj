@@ -169,6 +169,8 @@
     <Compile Include="DAL\InterviewInitializer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions\HasFile.cs" />
+    <Compile Include="Extensions\HttpParamActionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

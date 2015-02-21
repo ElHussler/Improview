@@ -11,6 +11,8 @@ using Improview1.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.IO;
+using Improview1.Extensions;
+using System.Data.SqlClient;
 
 namespace Improview1.Controllers
 {
@@ -38,6 +40,7 @@ namespace Improview1.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.interviewId = interviewId;
+                ViewBag.questionNum = questionNum;
 
                 Interview interview = db.Interviews.Find(ViewBag.interviewId);
                 Question question = interview.Questions.ToList()[questionNum];
@@ -50,18 +53,34 @@ namespace Improview1.Controllers
             }
         }
 
+        [HttpParamAction]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Record()
+        {
+            return View();
+        }
+
+        [HttpParamAction]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Stop(int iId, int qNo, string fP)
+        {
+            return RedirectToAction("Next", new { iId = iId, qNo = qNo, fP = fP });
+        }
+
         // POST
         [HttpPost]
-        public ActionResult Next(int interviewId, int questionNum, string answerText)
+        public ActionResult Next(int iId, int qNo, string fP)//, string anT)
         {
             if (User.Identity.IsAuthenticated)
             {
-                ViewBag.interviewId = interviewId;
+                string filePath = fP;
+                ViewBag.interviewId = iId;
                 Interview interview = db.Interviews.Find(ViewBag.interviewId);
 
                 Answer answer = new Answer();
-                answer.Number = questionNum;
-                answer.Text = answerText;
+                answer.Number = qNo;
+                answer.Text = fP;//"";//anT;
+                //answer.FilePath = filePath;
                 answer.IsRecorded = false;
                 answer.UserID = User.Identity.GetUserId();
                 answer.Interview = interview;
@@ -69,9 +88,9 @@ namespace Improview1.Controllers
                 db.Answers.Add(answer);
                 db.SaveChanges();
 
-                if (questionNum < interview.Questions.Count)
+                if (qNo < interview.Questions.Count)
                 {
-                    Question question = interview.Questions.ToList()[questionNum];
+                    Question question = interview.Questions.ToList()[qNo];
                     return View(question);
                 }
                 else
@@ -88,17 +107,46 @@ namespace Improview1.Controllers
         [HttpPost]
         public ActionResult PostRecordedAudioVideo()
         {
+            var filePath = "";
+
             foreach (string upload in Request.Files)
             {
-                var path = AppDomain.CurrentDomain.BaseDirectory + "uploads/";
-                var file = Request.Files[upload];
+                if (!Request.Files[upload].HasVideoFile()) continue;                // Extension method checks video has been uploaded
+                                                                                    // http://www.mikesdotnetting.com/article/125/asp-net-mvc-uploading-and-downloading-files
+                string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/";
+                HttpPostedFileBase file = Request.Files[upload];
                 if (file == null) continue;
 
-                file.SaveAs(Path.Combine(path, Request.Form[0]));
+                filePath = Path.Combine(path, Request.Form[0]);
+
+                file.SaveAs(filePath);
+
+                // Saving posted image(s) to database
+                /*string mimeType = Request.Files[upload].ContentType;
+                Stream fileStream = Request.Files[upload].InputStream;
+                string fileName = Path.GetFileName(Request.Files[upload].FileName);
+                int fileLength = Request.Files[upload].ContentLength;
+                byte[] fileData = new byte[fileLength];
+                fileStream.Read(fileData, 0, fileLength);
+
+                const string connect = @"Server=.\SQLExpress;Database=FileTest;Trusted_Connection=True;";
+                using (var conn = new SqlConnection(connect))
+                {
+                    var qry = "INSERT INTO FileStore (FileContent, MimeType, FileName) VALUES (@FileContent, @MimeType, @FileName)";
+                    var cmd = new SqlCommand(qry, conn);
+                    cmd.Parameters.AddWithValue("@FileContent", fileData);
+                    cmd.Parameters.AddWithValue("@MimeType", mimeType);
+                    cmd.Parameters.AddWithValue("@FileName", fileName);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }*/
             }
 
-            //return RedirectToAction("Next");
-            return Json(Request.Form[0]);
+            ViewBag.filePath = filePath;
+
+            return RedirectToAction("Next", new { iId = ViewBag.interviewId, qNo = ViewBag.questionNum, fP = filePath });
+            //return Json(filePath);
+            //return View();
         }
 
         [HttpPost]

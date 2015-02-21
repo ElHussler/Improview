@@ -9,7 +9,7 @@
 <head>
     <title>@ViewBag.Title</title>
     <script type="text/javascript">
-        $("#submitButton").live("click", function () {
+        $("#submit").live("click", function () {
             $.get($(this), function (response) {
                 $("#interview").replaceWith($("#interview", response));
             });
@@ -23,43 +23,57 @@
 </head>
 <body>
     <div class="jumbotron" style="height: 500px; min-height: 100%; max-height: 100%">
-        <div id="interview" class="col-md-6">
-            @using (Html.BeginForm("Next", "Interview", new { interviewId = ViewBag.interviewId, questionNum = Model.Number }, FormMethod.Post))
+        <div id="interview" class="col-md-12" style="text-align: center;">
+            @using (Html.BeginForm("Next", "Interview", new { iId = ViewBag.interviewId, qNo = Model.Number, fP = ViewBag.filePath }, FormMethod.Post))
             {
                 <fieldset>
 
-                    @Html.HiddenFor(x => x.QuestionID)
+                    <table>
+                        <tr>
+                            <th style="display: none;">Question Number</th>
+                            <td>
+                                @Html.HiddenFor(x => x.QuestionID)
+                                <h2>Question #@Html.DisplayFor(x => x.Number)</h2>
+                            </td>
+                            <th style="display: none;">Question Text</th>
+                            <td>
+                                <h2>    @Model.Text</h2>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <p>Question #@Html.DisplayFor(x => x.Number)</p>
+                    <p>
+                        <video id="preview" controls style="border: 1px solid rgb(15, 158, 238); height: 375px; width: 500px;"></video>
+                    </p>
 
-                    <h2>@Model.Text</h2>
+                    <hr />
 
-                    <p>Type Your Answer:</p>
+                    <input id="record" value="Record" name="Record" />
+                    <input id="stop" value="Stop" name="Stop" disabled />
+                    <input id="submit" value="Next" name="Next" type="submit" />
 
-                    @Html.TextBox("answerText")
-                    <br />
-                    <input type="submit" value="Next" id="submitButton" />
+                    <div id="container" style="padding:1em 2em; display: none;"></div>
 
-                    <!--
-                        1) Record video
-                        2) store video blob in folder on server
-                        3) store location ref in answer database entity?
-                    -->
+                    <p id="blobdata" style="display: none;"></p>
+
+                    <!--<p>Type Your Answer:</p> AT Html.TextBox("answerText")-->
 
                 </fieldset>
             }
         </div>
 
-        <div id="interviewVid" class="col-md-6">
-            <p style="text-align:center;">
+        <!--<div id="interviewVid" class="col-md-6" style="text-align:center;">
+            <p>
                 <video id="preview" controls style="border: 1px solid rgb(15, 158, 238); height: 375px; width: 500px;"></video>
             </p>
+
             <hr />
 
             <button id="record">Record</button>
             <button id="stop" disabled>Stop</button>
-            <button id="delete" disabled>Delete files from Server</button>
-        </div>
+            <button display="none" id="delete" disabled>Delete files from Server</button>
+        </div>-->
+
         <div id="container" style="padding:1em 2em;"></div>
 
     </div>
