@@ -35,15 +35,15 @@ namespace Improview1.Controllers
         }
 
         // GET: Interview/Next/1
-        public ActionResult Next(int interviewId, int questionNum)
+        public ActionResult Next(int iId, int qNo)
         {
             if (User.Identity.IsAuthenticated)
             {
-                ViewBag.interviewId = interviewId;
-                ViewBag.questionNum = questionNum;
+                ViewBag.interviewId = iId;
+                ViewBag.questionNum = qNo;
 
-                Interview interview = db.Interviews.Find(ViewBag.interviewId);
-                Question question = interview.Questions.ToList()[questionNum];
+                Interview interview = db.Interviews.Find(iId);
+                Question question = interview.Questions.ToList()[qNo];
 
                 return View(question);
             }
@@ -53,37 +53,27 @@ namespace Improview1.Controllers
             }
         }
 
-        [HttpParamAction]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Record()
-        {
-            return View();
-        }
-
-        [HttpParamAction]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Stop(int iId, int qNo, string fP)
-        {
-            return RedirectToAction("Next", new { iId = iId, qNo = qNo, fP = fP });
-        }
-
         // POST
         [HttpPost]
-        public ActionResult Next(int iId, int qNo, string fP)//, string anT)
+        public ActionResult NextPost(int iId, int qNo)//, string anT)
         {
             if (User.Identity.IsAuthenticated)
             {
-                string filePath = fP;
                 ViewBag.interviewId = iId;
-                Interview interview = db.Interviews.Find(ViewBag.interviewId);
+                Interview interview = db.Interviews.Find(iId);
+
+                string filePath = Session["filePath"].ToString();
 
                 Answer answer = new Answer();
                 answer.Number = qNo;
-                answer.Text = fP;//"";//anT;
-                //answer.FilePath = filePath;
-                answer.IsRecorded = false;
+                //answer.Text = fP;//"";//anT;
+                answer.FilePath = filePath;//fP;
+                answer.IsRecorded = (filePath.EndsWith("webm")) ? true : false;
+                //answer.IsRecorded = false;
                 answer.UserID = User.Identity.GetUserId();
                 answer.Interview = interview;
+
+                Session.Remove("filePath");
 
                 db.Answers.Add(answer);
                 db.SaveChanges();
@@ -91,7 +81,7 @@ namespace Improview1.Controllers
                 if (qNo < interview.Questions.Count)
                 {
                     Question question = interview.Questions.ToList()[qNo];
-                    return View(question);
+                    return View("Next", question);
                 }
                 else
                 {
@@ -104,10 +94,25 @@ namespace Improview1.Controllers
             }
         }
 
+        public int CreateAnswerWithFilePath(string fP)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                Answer answer = new Answer();
+                answer.FilePath = fP;
+
+                db.Answers.Add(answer);
+                db.SaveChanges();
+
+                return answer.AnswerID;
+            }
+            else return 0;
+        }
+
         [HttpPost]
         public ActionResult PostRecordedAudioVideo()
         {
-            var filePath = "";
+            var fP = "";
 
             foreach (string upload in Request.Files)
             {
@@ -117,9 +122,12 @@ namespace Improview1.Controllers
                 HttpPostedFileBase file = Request.Files[upload];
                 if (file == null) continue;
 
-                filePath = Path.Combine(path, Request.Form[0]);
+                fP = Path.Combine(path, Request.Form[0]);
 
-                file.SaveAs(filePath);
+                file.SaveAs(fP);
+
+                Session["filePath"] = fP;
+                //CreateAnswerWithFilePath(fP);
 
                 // Saving posted image(s) to database
                 /*string mimeType = Request.Files[upload].ContentType;
@@ -142,10 +150,12 @@ namespace Improview1.Controllers
                 }*/
             }
 
-            ViewBag.filePath = filePath;
+            //ViewBag.filePath = fP;
 
-            return RedirectToAction("Next", new { iId = ViewBag.interviewId, qNo = ViewBag.questionNum, fP = filePath });
+            //return RedirectToAction("Next", new { iId = ViewBag.interviewId, qNo = ViewBag.questionNum, fP = fP });
+            return Json(Request.Form[0]);
             //return Json(filePath);
+            //return Content(fP);
             //return View();
         }
 

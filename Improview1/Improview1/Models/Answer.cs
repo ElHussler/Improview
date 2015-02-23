@@ -10,18 +10,14 @@ namespace Improview1.Models
     {
         public int AnswerID { get; set; }
 
-        [Required]
-        [Display(Name = "Answer")]
-        [StringLength(100, MinimumLength = 1)]
-        public string Text { get; set; }
-
-        // Stream objects, byte arrays, for saving webm to server
-
         [Range(1, 15)]
         public int Number { get; set; }
 
         [Required]
         public bool IsRecorded { get; set; }
+
+        [Display(Name = "Path to answer video on server")]
+        public string FilePath { get; set; }
 
         public string UserID { get; set; }
         public virtual Interview Interview { get; set; }

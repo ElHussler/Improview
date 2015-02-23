@@ -24,42 +24,39 @@
 <body>
     <div class="jumbotron" style="height: 500px; min-height: 100%; max-height: 100%">
         <div id="interview" class="col-md-12" style="text-align: center;">
-            @using (Html.BeginForm("Next", "Interview", new { iId = ViewBag.interviewId, qNo = Model.Number, fP = ViewBag.filePath }, FormMethod.Post))
+            @using (Html.BeginForm("NextPost", "Interview", new { iId = ViewBag.interviewId, qNo = Model.Number }, FormMethod.Post))
             {
                 <fieldset>
-
-                    <table>
+                    <table style="width: 100%; border: 1px solid black">
                         <tr>
-                            <th style="display: none;">Question Number</th>
-                            <td>
+                            <th style="display: none; width: 20%">Question Number</th>
+                            <td style ="text-align: left; border: 1px solid black">
                                 @Html.HiddenFor(x => x.QuestionID)
-                                <h2>Question #@Html.DisplayFor(x => x.Number)</h2>
+                                <h2>Question #@Html.DisplayFor(x => x.Number):</h2>
                             </td>
-                            <th style="display: none;">Question Text</th>
+                            <th style="display: none; width: 70%">Question Text</th>
+                            <td style="text-align: left; border: 1px solid black">
+                                <h2>@Model.Text</h2>
+                            </td>
+                            <th style="display: none; width: 10%">Next Question</th>
                             <td>
-                                <h2>    @Model.Text</h2>
+                                <input id="submit" value="Next" name="Next" type="submit" />
                             </td>
                         </tr>
                     </table>
-
-                    <p>
-                        <video id="preview" controls style="border: 1px solid rgb(15, 158, 238); height: 375px; width: 500px;"></video>
-                    </p>
-
-                    <hr />
-
-                    <input id="record" value="Record" name="Record" />
-                    <input id="stop" value="Stop" name="Stop" disabled />
-                    <input id="submit" value="Next" name="Next" type="submit" />
-
-                    <div id="container" style="padding:1em 2em; display: none;"></div>
-
-                    <p id="blobdata" style="display: none;"></p>
-
                     <!--<p>Type Your Answer:</p> AT Html.TextBox("answerText")-->
-
+                    <p id="path"></p>
                 </fieldset>
             }
+
+            <p>
+                <video id="preview" controls style="border: 1px solid rgb(15, 158, 238); height: 375px; width: 500px;"></video>
+            </p>
+
+            <button id="record" name="Record">Record</button>
+            <button id="stop" name="Stop" disabled>Stop</button>
+
+            <div id="container" style="padding:1em 2em; display: none;"></div>
         </div>
 
         <!--<div id="interviewVid" class="col-md-6" style="text-align:center;">

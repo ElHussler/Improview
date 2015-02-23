@@ -170,7 +170,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Extensions\HasFile.cs" />
-    <Compile Include="Extensions\HttpParamActionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +188,14 @@
     <Compile Include="Migrations\201502152355163_AlterAnswerUser.cs" />
     <Compile Include="Migrations\201502152355163_AlterAnswerUser.Designer.cs">
       <DependentUpon>201502152355163_AlterAnswerUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502222149423_AnswerFilePath.cs" />
+    <Compile Include="Migrations\201502222149423_AnswerFilePath.Designer.cs">
+      <DependentUpon>201502222149423_AnswerFilePath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502231343302_ModelCleanup.cs" />
+    <Compile Include="Migrations\201502231343302_ModelCleanup.Designer.cs">
+      <DependentUpon>201502231343302_ModelCleanup.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -295,6 +302,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502152355163_AlterAnswerUser.resx">
       <DependentUpon>201502152355163_AlterAnswerUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502222149423_AnswerFilePath.resx">
+      <DependentUpon>201502222149423_AnswerFilePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502231343302_ModelCleanup.resx">
+      <DependentUpon>201502231343302_ModelCleanup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

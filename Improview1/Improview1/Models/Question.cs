@@ -13,7 +13,6 @@ namespace Improview1.Models
         public int QuestionID { get; set; }
 
         [Required]
-        [Display(Name = "Question")]
         [StringLength(100, MinimumLength = 1)]
         public string Text { get; set; }
 
@@ -25,8 +24,6 @@ namespace Improview1.Models
 
         [Required]
         public bool IsRecorded { get; set; }
-
-        //public Interview Interview { get; set; }
 
         public virtual ICollection<Interview> Interviews { get; set; }
     }

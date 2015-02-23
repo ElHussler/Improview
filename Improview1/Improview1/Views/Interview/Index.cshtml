@@ -34,7 +34,7 @@
                     @Html.DisplayFor(modelItem => item.Questions.Count)
                 </td>
                 <td>
-                    @Html.ActionLink("Start", "Next", "Interview", new { interviewId = item.InterviewID, questionNum = 0 }, new { @class = "btn btn-primary btn-lg" }) &raquo;
+                    @Html.ActionLink("Start", "Next", "Interview", new { iId = item.InterviewID, qNo = 0 }, new { @class = "btn btn-primary btn-lg" }) &raquo;
                 </td>
             </tr>
         }
