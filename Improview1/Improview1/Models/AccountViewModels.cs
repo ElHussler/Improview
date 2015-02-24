@@ -65,6 +65,16 @@ namespace Improview1.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        [StringLength(40, MinimumLength = 1)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(40, MinimumLength = 1)]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

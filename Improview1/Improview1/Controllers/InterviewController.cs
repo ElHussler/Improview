@@ -20,12 +20,12 @@ namespace Improview1.Controllers
     {
         private InterviewContext db = new InterviewContext();
         protected ApplicationDbContext ApplicationDbContext { get; set; }
-        protected UserManager<ApplicationUser> UserManager { get; set; }
+        protected UserManager<User> UserManager { get; set; }
 
         public InterviewController()
         {
             this.ApplicationDbContext = new ApplicationDbContext();
-            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
+            this.UserManager = new UserManager<User>(new UserStore<User>(this.ApplicationDbContext));
         }
 
         // GET: Interview
@@ -94,26 +94,9 @@ namespace Improview1.Controllers
             }
         }
 
-        public int CreateAnswerWithFilePath(string fP)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                Answer answer = new Answer();
-                answer.FilePath = fP;
-
-                db.Answers.Add(answer);
-                db.SaveChanges();
-
-                return answer.AnswerID;
-            }
-            else return 0;
-        }
-
         [HttpPost]
         public ActionResult PostRecordedAudioVideo()
         {
-            var fP = "";
-
             foreach (string upload in Request.Files)
             {
                 if (!Request.Files[upload].HasVideoFile()) continue;                // Extension method checks video has been uploaded
@@ -122,14 +105,13 @@ namespace Improview1.Controllers
                 HttpPostedFileBase file = Request.Files[upload];
                 if (file == null) continue;
 
-                fP = Path.Combine(path, Request.Form[0]);
+                string fP = Path.Combine(path, Request.Form[0]);
 
                 file.SaveAs(fP);
 
                 Session["filePath"] = fP;
-                //CreateAnswerWithFilePath(fP);
 
-                // Saving posted image(s) to database
+                // Sample code for saving posted image to database, not using if storing on server?
                 /*string mimeType = Request.Files[upload].ContentType;
                 Stream fileStream = Request.Files[upload].InputStream;
                 string fileName = Path.GetFileName(Request.Files[upload].FileName);
@@ -150,13 +132,7 @@ namespace Improview1.Controllers
                 }*/
             }
 
-            //ViewBag.filePath = fP;
-
-            //return RedirectToAction("Next", new { iId = ViewBag.interviewId, qNo = ViewBag.questionNum, fP = fP });
             return Json(Request.Form[0]);
-            //return Json(filePath);
-            //return Content(fP);
-            //return View();
         }
 
         [HttpPost]

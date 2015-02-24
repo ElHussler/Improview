@@ -45,8 +45,8 @@ namespace Improview1.Migrations
                              Type=QType.Technical,Number=5}
             };
 
-            questions.ForEach(q => context.Questions.AddOrUpdate(q));
-            questions2.ForEach(q => context.Questions.AddOrUpdate(q));
+            questions.ForEach(q => context.Questions.AddOrUpdate(p => p.Text, q));
+            questions2.ForEach(q => context.Questions.AddOrUpdate(p => p.Text, q));
             context.SaveChanges();
 
             var interviews = new List<Interview>
@@ -55,7 +55,7 @@ namespace Improview1.Migrations
                 new Interview{Questions=questions2, Description="Junior Criminal Practice Lawyer"}
             };
 
-            interviews.ForEach(i => context.Interviews.AddOrUpdate(i));
+            interviews.ForEach(i => context.Interviews.AddOrUpdate(j => j.Description, i));
             context.SaveChanges();
         }
     }

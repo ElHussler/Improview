@@ -197,6 +197,14 @@
     <Compile Include="Migrations\201502231343302_ModelCleanup.Designer.cs">
       <DependentUpon>201502231343302_ModelCleanup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502232259185_AddedUserNames.cs" />
+    <Compile Include="Migrations\201502232259185_AddedUserNames.Designer.cs">
+      <DependentUpon>201502232259185_AddedUserNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502232328402_ChangedNames.cs" />
+    <Compile Include="Migrations\201502232328402_ChangedNames.Designer.cs">
+      <DependentUpon>201502232328402_ChangedNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -308,6 +316,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502231343302_ModelCleanup.resx">
       <DependentUpon>201502231343302_ModelCleanup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502232259185_AddedUserNames.resx">
+      <DependentUpon>201502232259185_AddedUserNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502232328402_ChangedNames.resx">
+      <DependentUpon>201502232328402_ChangedNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
