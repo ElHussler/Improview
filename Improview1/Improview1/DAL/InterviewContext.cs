@@ -23,5 +23,7 @@ namespace Improview1.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }
+
+        public System.Data.Entity.DbSet<Improview1.Models.Review> Reviews { get; set; }
     }
 }

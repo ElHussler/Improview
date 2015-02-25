@@ -20,20 +20,28 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Interview", "Index", "Interview")</li>
-                    <li>@Html.ActionLink("Review", "Index", "Review")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Interviews", "Index", "Interview")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Review Responses <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Browse Responses", "Index", "Review")</li>
+                            <li>@Html.ActionLink("Your Responses", "User", "Review")</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" style="padding-top: -5px">
         @RenderBody()
-        <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Improview</p>
+            <div style="float: left">
+                <p>&copy; @DateTime.Now.Year - Improview</p>
+            </div>
+            <div style="float: right">
+                <p>@Html.ActionLink("About", "About", "Home") - @Html.ActionLink("Contact", "Contact", "Home")</p>
+            </div>
         </footer>
     </div>
 

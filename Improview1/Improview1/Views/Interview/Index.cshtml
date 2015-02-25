@@ -1,44 +1,48 @@
 ﻿@model IEnumerable<Improview1.Models.Interview>
 
 @{
-    ViewBag.Title = "Interview";
+    ViewBag.Title = "Interviews";
 }
-<div class="jumbotron" style="height: 500px; min-height: 100%; max-height: 100%">
-    <h1 style="text-align: center">Improview</h1>
-    <p class="lead" style="text-align: center; margin-top: 80px; margin-bottom: 80px">Choose an interview for a job title below and click Start to begin</p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InterviewID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions)
-            </th>
-            <th>
-            </th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
+<script src="~/Content/tables.css"></script>
+
+<div class="jumbotron" style="height: 480px">
+    <h2>Available Interviews</h2>
+    <h3 class="lead" style="margin-top: 20px">> Choose a practice interview for a job title below and click Start to begin</h3>
+    <table class="table" style="height: 320px; margin-top: 5px; overflow-y: scroll">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InterviewID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Questions.Count)
-                </td>
-                <td>
-                    @Html.ActionLink("Start", "Next", "Interview", new { iId = item.InterviewID, qNo = 0 }, new { @class = "btn btn-primary btn-lg" }) &raquo;
-                </td>
+                <th style="max-width: 20%">
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th style="max-width: 50%">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Questions)
+                </th>
+                <th>
+                </th>
             </tr>
-        }
-
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="max-width: 20%">
+                        <p>@Html.DisplayFor(modelItem => item.Title)</p>
+                    </td>
+                    <td style="max-width: 50%">
+                        <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                    </td>
+                    <td style="text-align: center">
+                        @Html.DisplayFor(modelItem => item.Questions.Count)
+                    </td>
+                    <td style="margin: auto">
+                        @Html.ActionLink("Start", "Next", "Interview", new { iId = item.InterviewID, qNo = 0 }, new { @class = "btn btn-primary btn-lg" })
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
-
 </div>

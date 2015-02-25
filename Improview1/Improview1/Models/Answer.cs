@@ -19,7 +19,10 @@ namespace Improview1.Models
         [Display(Name = "Path to answer video on server")]
         public string FilePath { get; set; }
 
+        [Required]
         public string UserID { get; set; }
+
         public virtual Interview Interview { get; set; }
+        public virtual ICollection<Review> Review { get; set; }
     }
 }

@@ -14,6 +14,10 @@ namespace Improview1.Models
 
         [Required]
         [StringLength(100, MinimumLength = 1)]
+        public string Title { get; set; }
+
+        [Required]
+        [StringLength(255, MinimumLength = 1)]
         public string Description { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; }

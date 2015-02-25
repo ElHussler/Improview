@@ -51,8 +51,14 @@ namespace Improview1.Migrations
 
             var interviews = new List<Interview>
             {
-                new Interview{Questions=questions, Description="Software Developer C#/.NET/SQL"},
-                new Interview{Questions=questions2, Description="Junior Criminal Practice Lawyer"}
+                new Interview{Questions=questions, Title="Software Developer C#/.NET/SQL", 
+                              Description="Developing web-connected applications with SQL backends, degree or 2 years experience desirable"},
+                new Interview{Questions=questions2, Title="Junior Criminal Practice Lawyer",
+                              Description="Graduate position for Criminal Law post-grads, hands-on client case work assisting industry leaders"},
+                new Interview{Questions=questions, Title="Software Developer C#/.NET/SQL", 
+                              Description="Developing web-connected applications with SQL backends, degree or 2 years experience desirable 2"},
+                new Interview{Questions=questions2, Title="Junior Criminal Practice Lawyer",
+                              Description="Graduate position for Criminal Law post-grads, hands-on client case work assisting industry leaders 2"}
             };
 
             interviews.ForEach(i => context.Interviews.AddOrUpdate(j => j.Description, i));

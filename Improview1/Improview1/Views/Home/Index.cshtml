@@ -18,14 +18,19 @@
 </div>
 
 <div class="row" style="text-align: center">
-    <div class="col-md-5" style="float: left; margin-left: 5%">
-        <h2>Start a mock interview</h2>
-        <p>Register an account to take your first 'Improview' interview, no recruitment agents required!</p>
-        @Html.ActionLink("Begin Interview", "Index", "Interview", null, new { @class = "btn btn-default" })
+    <div class="col-md-4">
+        <h2>Start a practice 'Improview' interview</h2>
+        <p>Log in or register to take your first 'Improview' interview, no recruitment agents required!</p>
+        @Html.ActionLink("Start Interview", "Index", "Interview", null, new { @class = "btn btn-default" })
     </div>
-    <div class="col-md-5" style="float: right; margin-right: 5%">
-        <h2>View and rate responses</h2>
+    <div class="col-md-4">
+        <h2>View and rate answers by other users</h2>
         <p>See how others have responded to questions, rate their answers, and comment to give them feedback.</p>
-        @Html.ActionLink("Review Responses", "Index", "Review", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Review Answers", "Index", "Review", null, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h2>Check for feedback on your answers</h2>
+        <p>Check out the ratings and comments users and professionals have given in response to your answers!</p>
+        @Html.ActionLink("View Responses", "Index", "Review", null, new { @class = "btn btn-default" })
     </div>
 </div>
