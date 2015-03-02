@@ -45,6 +45,8 @@ namespace Improview1.Controllers
                 Interview interview = db.Interviews.Find(iId);
                 Question question = interview.Questions.ToList()[qNo];
 
+                ViewBag.totalQuestions = interview.Questions.Count();
+
                 return View(question);
             }
             else
@@ -81,11 +83,14 @@ namespace Improview1.Controllers
                 if (qNo < interview.Questions.Count)
                 {
                     Question question = interview.Questions.ToList()[qNo];
+
+                    ViewBag.totalQuestions = interview.Questions.Count();
+
                     return View("Next", question);
                 }
                 else
                 {
-                    return RedirectToAction("Finish", new { interviewId = ViewBag.interviewId });
+                    return RedirectToAction("Finish", new { iId = ViewBag.interviewId });
                 }
             }
             else
@@ -144,11 +149,11 @@ namespace Improview1.Controllers
             return Json(true);
         }
 
-        public ActionResult Finish(int interviewId)
+        public ActionResult Finish(int iId)
         {
             if (User.Identity.IsAuthenticated)
             {
-                Interview interview = db.Interviews.Find(interviewId);
+                Interview interview = db.Interviews.Find(iId);
                 return View(interview);
             }
             else

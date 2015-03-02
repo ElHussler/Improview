@@ -11,18 +11,23 @@ namespace Improview1.Models
         public int AnswerID { get; set; }
 
         [Range(1, 15)]
+        [Display(Name = "Answer Number")]
         public int Number { get; set; }
 
         [Required]
         public bool IsRecorded { get; set; }
 
-        [Display(Name = "Path to answer video on server")]
+        [Display(Name = "Answer Video")]
         public string FilePath { get; set; }
+
+        [Range(1, 5)]
+        [Display(Name = "Rating")]
+        public int Rating { get; set; }
 
         [Required]
         public string UserID { get; set; }
 
         public virtual Interview Interview { get; set; }
-        public virtual ICollection<Review> Review { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

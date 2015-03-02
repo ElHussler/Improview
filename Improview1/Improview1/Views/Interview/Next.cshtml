@@ -1,7 +1,7 @@
 ﻿@model Improview1.Models.Question
 
 @{
-    ViewBag.Title = "Interview";
+    ViewBag.Title = "Question #" + Model.Number.ToString() + " of " + ViewBag.totalQuestions;
 }
 
 <!DOCTYPE html>

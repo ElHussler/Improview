@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body style="background: url('../../Content/bg-light.jpg') repeat fixed left top #DDD;">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -22,10 +22,10 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Interviews", "Index", "Interview")</li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Review Responses <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Feedback <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Browse Responses", "Index", "Review")</li>
-                            <li>@Html.ActionLink("Your Responses", "User", "Review")</li>
+                            <li>@Html.ActionLink("Browse Answers", "Index", "Review")</li>
+                            <li>@Html.ActionLink("Your Answers", "User", "Review")</li>
                         </ul>
                     </li>
                 </ul>

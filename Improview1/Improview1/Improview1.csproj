@@ -214,6 +214,18 @@
     <Compile Include="Migrations\201502250037152_AddInterviewTitleAlterDesc.Designer.cs">
       <DependentUpon>201502250037152_AddInterviewTitleAlterDesc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503012335414_AnswerNameChanges.cs" />
+    <Compile Include="Migrations\201503012335414_AnswerNameChanges.Designer.cs">
+      <DependentUpon>201503012335414_AnswerNameChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503012341551_AddedAnswerRatingProp.cs" />
+    <Compile Include="Migrations\201503012341551_AddedAnswerRatingProp.Designer.cs">
+      <DependentUpon>201503012341551_AddedAnswerRatingProp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503020158509_DisplayNames.cs" />
+    <Compile Include="Migrations\201503020158509_DisplayNames.Designer.cs">
+      <DependentUpon>201503020158509_DisplayNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -226,10 +238,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bg-light.jpg" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrapDefault.css" />
-    <Content Include="Content\bootstrapDefault.min.css" />
     <Content Include="Content\tables.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -345,6 +355,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502250037152_AddInterviewTitleAlterDesc.resx">
       <DependentUpon>201502250037152_AddInterviewTitleAlterDesc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503012335414_AnswerNameChanges.resx">
+      <DependentUpon>201503012335414_AnswerNameChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503012341551_AddedAnswerRatingProp.resx">
+      <DependentUpon>201503012341551_AddedAnswerRatingProp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503020158509_DisplayNames.resx">
+      <DependentUpon>201503020158509_DisplayNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

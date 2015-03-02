@@ -18,8 +18,23 @@ namespace Improview1.Controllers
         // GET: Review
         public ActionResult Index()
         {
-            var reviews = db.Reviews.Include(r => r.Answer);
-            return View(reviews.ToList());
+            var answers = db.Answers.Include(r => r.Reviews);
+            return View(answers.ToList());
+        }
+
+        public ActionResult MyAnswers()
+        {
+            return null;
+        }
+
+        public ActionResult Answer()
+        {
+            return null;
+        }
+
+        public ActionResult Submit()
+        {
+            return null;
         }
 
         // GET: Review/Details/5
@@ -41,7 +56,7 @@ namespace Improview1.Controllers
         public ActionResult Create()
         {
             ViewBag.AnswerID = new SelectList(db.Answers, "AnswerID", "FilePath");
-            return View();
+            return MyAnswers();
         }
 
         // POST: Review/Create

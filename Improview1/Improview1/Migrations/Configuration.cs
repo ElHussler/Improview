@@ -55,13 +55,41 @@ namespace Improview1.Migrations
                               Description="Developing web-connected applications with SQL backends, degree or 2 years experience desirable"},
                 new Interview{Questions=questions2, Title="Junior Criminal Practice Lawyer",
                               Description="Graduate position for Criminal Law post-grads, hands-on client case work assisting industry leaders"},
-                new Interview{Questions=questions, Title="Software Developer C#/.NET/SQL", 
+                new Interview{Questions=questions, Title="Software Developer C#/.NET/SQL 2", 
                               Description="Developing web-connected applications with SQL backends, degree or 2 years experience desirable 2"},
-                new Interview{Questions=questions2, Title="Junior Criminal Practice Lawyer",
+                new Interview{Questions=questions2, Title="Junior Criminal Practice Lawyer 2",
                               Description="Graduate position for Criminal Law post-grads, hands-on client case work assisting industry leaders 2"}
             };
 
             interviews.ForEach(i => context.Interviews.AddOrUpdate(j => j.Description, i));
+            context.SaveChanges();
+
+            var tempInterview = new Interview
+            {
+                Questions = questions,
+                Title = "Software Developer C#/.NET/SQL",
+                Description = "Developing web-connected applications with SQL backends, degree or 2 years experience desirable"
+            };
+
+            var tempAnswer = new Answer
+            {
+                AnswerID = 43, 
+                FilePath="C:\\Users\\Luke\\Dropbox\\Source\\MPrepo\\Improview1\\Improview1\\uploads/124274838.webm",
+                Interview = tempInterview, 
+                IsRecorded=true, 
+                Reviews=null,
+                Number=1, 
+                Rating=1,
+                UserID="aa07e10c-6a2d-4338-ae57-0f90dcee01b5"
+            };
+
+            //var tempReview = new Review { Rating = 2, Comment = "lololol", AnswerID = 43, Answer = tempAnswer };
+
+            //tempReview(i => context.Reviews.AddOrUpdate(j => j.Comment, i));
+
+            context.Reviews.AddOrUpdate(j => j.Comment, new Review { Rating = 2, Comment = "lololol", AnswerID = 43, Answer = tempAnswer });
+
+            //context.Reviews.Add(tempReview);
             context.SaveChanges();
         }
     }

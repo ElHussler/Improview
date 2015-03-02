@@ -1,0 +1,20 @@
+HIGH PRIORITY
+1) Review/Index/	- GET List of all Answer entities
+			  Include metadata (1: Model props, User LastName & Finitial)
+2) Review/User/		- GET List of all Answer entities with current UserID
+			  Video elements to play each, src="server address?"
+			  Include metadata (1: Model props, 2: BLOB metadata)
+3) Review/Answer/	- GET video from server/storage using filepath parameter
+4) Review/Submit/	- POST Review using HTML.BeginForm for Review entity model
+			  Review linked to Answer, so:
+			  Overall rating calculated by hitting all of Answer's reviews in
+			  DB for rating and performing mean average?
+
+LOW PRIORITY (E.G. COSMETIC, NON-FUNCTIONAL)
+- Add thumbnails to Answer model and save 
+- Text-to-speech to audibly hear questions
+- Fix footer to bottom of browser window?
+- Limit interview video player use to record, stop, and single replay after (diable video element controls, overlay rectangle to obscure controls on button presses?)
+- Disable video player options (full-screen, right click, other options)
+- Fix scroll window overflow in interview and all other pages (percentage/viewport CSS?)
+- Add/alter colours/fonts/backgrounds to make it look less generic

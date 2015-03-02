@@ -8,10 +8,13 @@
     
     <h2>Congratulations! You made it through your interview for</h2>
     <br />
-    <h1>@Model.Description</h1>
+    <h1>@Model.Title</h1>
     <br />
-    <h2>Press the button below to submit your responses for peer review</h2>
+    <h3>@Model.Description</h3>
     <br />
-    @Html.ActionLink("Submit", "Submit", "Review", new { @class = "btn btn-primary btn-lg" }) &raquo;
+    <h2>Would you like to submit your responses for peer review?</h2>
+    <br />
+    @Html.ActionLink("Yes", "Submit", "Review", new { @class = "btn btn-primary btn-lg" })
+    @Html.ActionLink("No", "Index", "Home", new { @class = "btn btn-primary btn-lg" })
 
 </div>

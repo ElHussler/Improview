@@ -13,13 +13,16 @@ namespace Improview1.Models
         public int QuestionID { get; set; }
 
         [Required]
+        [Display(Name = "Question Text")]
         [StringLength(100, MinimumLength = 1)]
         public string Text { get; set; }
 
         [Range(1, 15)]
+        [Display(Name = "Question Number")]
         public int Number { get; set; }
 
         [Required]
+        [Display(Name = "Question Type")]
         public QType Type { get; set; }
 
         [Required]
