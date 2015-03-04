@@ -17,6 +17,8 @@ namespace Improview1.Migrations
 
         protected override void Seed(Improview1.DAL.InterviewContext context)
         {
+            // SEED 2 SETS OF 5 QUESTIONS
+
             var questions = new List<Question>
             {
                 new Question{Text="Can you tell me why you applied for this position?",
@@ -29,7 +31,7 @@ namespace Improview1.Migrations
                              Type=QType.Technical,Number=4},
                 new Question{Text="How would you perform an inner join in SQL Server?",
                              Type=QType.Technical,Number=5}
-            };
+            };/*
             
             var questions2 = new List<Question>
             {
@@ -49,20 +51,24 @@ namespace Improview1.Migrations
             questions2.ForEach(q => context.Questions.AddOrUpdate(p => p.Text, q));
             context.SaveChanges();
 
+            // SEED 2 INTERVIEWS
+
             var interviews = new List<Interview>
             {
                 new Interview{Questions=questions, Title="Software Developer C#/.NET/SQL", 
                               Description="Developing web-connected applications with SQL backends, degree or 2 years experience desirable"},
                 new Interview{Questions=questions2, Title="Junior Criminal Practice Lawyer",
-                              Description="Graduate position for Criminal Law post-grads, hands-on client case work assisting industry leaders"},
+                              Description="Graduate position for Criminal Law post-grads, hands-on client case work assisting industry leaders"}/*,
                 new Interview{Questions=questions, Title="Software Developer C#/.NET/SQL 2", 
                               Description="Developing web-connected applications with SQL backends, degree or 2 years experience desirable 2"},
                 new Interview{Questions=questions2, Title="Junior Criminal Practice Lawyer 2",
-                              Description="Graduate position for Criminal Law post-grads, hands-on client case work assisting industry leaders 2"}
-            };
+                              Description="Graduate position for Criminal Law post-grads, hands-on client case work assisting industry leaders 2"}*/
+            /*};
 
             interviews.ForEach(i => context.Interviews.AddOrUpdate(j => j.Description, i));
-            context.SaveChanges();
+            context.SaveChanges();*/
+
+            // SEED 1 REVIEW
 
             var tempInterview = new Interview
             {
@@ -73,23 +79,17 @@ namespace Improview1.Migrations
 
             var tempAnswer = new Answer
             {
-                AnswerID = 43, 
-                FilePath="C:\\Users\\Luke\\Dropbox\\Source\\MPrepo\\Improview1\\Improview1\\uploads/124274838.webm",
+                AnswerID = 48,
+                FilePath = "C:\\Users\\Luke\\Dropbox\\Source\\MPrepo\\Improview1\\Improview1\\uploads/125811147.webm",
                 Interview = tempInterview, 
                 IsRecorded=true, 
                 Reviews=null,
                 Number=1, 
-                Rating=1,
+                Rating=2,
                 UserID="aa07e10c-6a2d-4338-ae57-0f90dcee01b5"
             };
 
-            //var tempReview = new Review { Rating = 2, Comment = "lololol", AnswerID = 43, Answer = tempAnswer };
-
-            //tempReview(i => context.Reviews.AddOrUpdate(j => j.Comment, i));
-
-            context.Reviews.AddOrUpdate(j => j.Comment, new Review { Rating = 2, Comment = "lololol", AnswerID = 43, Answer = tempAnswer });
-
-            //context.Reviews.Add(tempReview);
+            context.Reviews.AddOrUpdate(j => j.Comment, new Review { Rating = 2, Comment = "lololol", AnswerID = 48, Answer = tempAnswer });
             context.SaveChanges();
         }
     }

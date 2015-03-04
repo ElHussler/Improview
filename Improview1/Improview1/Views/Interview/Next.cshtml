@@ -23,6 +23,13 @@
 
     <!-- webRTC script 'RecordRTC' used for video/audio recording -->
     <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"> </script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('video').bind('contextmenu', function () { return false; });
+        });
+    </script>
 </head>
 <body>
     <div class="jumbotron" style="height: 480px; min-height: 100%; max-height: 100%">
@@ -50,10 +57,10 @@
                 </fieldset>
             }
 
-            <p>
-                <video id="preview" controls style="border: 1px solid rgb(15, 158, 238); height: 375px; width: 500px;"></video>
-            </p>
-
+            <div style="height: 380px; width: 505px;">
+                <video id="preview" controls height="375" width="500" style="border: 1px solid rgb(15, 158, 238)"></video>
+            </div>
+            
             <button id="record" name="Record">Record</button>
             <button id="stop" name="Stop" disabled>Stop</button>
             <div id="container" style="padding:1em 2em; display: none;"></div>

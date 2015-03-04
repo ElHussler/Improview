@@ -22,18 +22,22 @@ namespace Improview1.Controllers
             return View(answers.ToList());
         }
 
+        public ActionResult Answer(int aId)
+        {
+            var answers = db.Answers.Include(r => r.Reviews);
+            var answer = answers.Single(a => a.AnswerID == aId);
+            return View(answer);
+        }
+
         public ActionResult MyAnswers()
         {
             return null;
         }
 
-        public ActionResult Answer()
+        public ActionResult Submit(int nR, string nC)
         {
-            return null;
-        }
 
-        public ActionResult Submit()
-        {
+
             return null;
         }
 
