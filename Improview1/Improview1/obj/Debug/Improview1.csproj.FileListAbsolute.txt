@@ -123,6 +123,7 @@ C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.M
 C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.Migrations.AnswerNameChanges.resources
 C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.Migrations.AddedAnswerRatingProp.resources
 C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.Migrations.DisplayNames.resources
+C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.Migrations.ChangeReviewDNames.resources
 C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.csproj.GenerateResource.Cache
 C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.dll
 C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.pdb

@@ -12,6 +12,12 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
+
+#commentBox {
+    width: 200px;
+    height: 150px;
+}
+
 body {
   margin: 0;
 }

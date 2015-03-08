@@ -8,37 +8,101 @@ using System.Web;
 using System.Web.Mvc;
 using Improview1.DAL;
 using Improview1.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Improview1.Controllers
 {
     public class ReviewController : Controller
     {
         private InterviewContext db = new InterviewContext();
+        protected ApplicationDbContext ApplicationDbContext { get; set; }
+        protected UserManager<User> UserManager { get; set; }
+
+        public ReviewController()
+        {
+            this.ApplicationDbContext = new ApplicationDbContext();
+            this.UserManager = new UserManager<User>(new UserStore<User>(this.ApplicationDbContext));
+        }
 
         // GET: Review
         public ActionResult Index()
         {
             var answers = db.Answers.Include(r => r.Reviews);
+
+            ViewBag.Title = "Browse Answers";
+            ViewBag.SubTitle = "> Choose a user's response to an interview question to view and give them feedback";
+
             return View(answers.ToList());
         }
 
         public ActionResult Answer(int aId)
         {
-            var answers = db.Answers.Include(r => r.Reviews);
-            var answer = answers.Single(a => a.AnswerID == aId);
+            var answer = db.Answers.Include(r => r.Reviews).Single(a => a.AnswerID == aId);
+            ViewBag.aId = aId;
             return View(answer);
         }
 
         public ActionResult MyAnswers()
         {
-            return null;
+            if (User.Identity.IsAuthenticated)
+            {
+                var tempId = User.Identity.GetUserId();
+                var answers = db.Answers.Include(r => r.Reviews).Where(a => a.UserID == tempId);
+                //tempId = null;
+
+                ViewBag.Title = "Your Answers";
+                ViewBag.SubTitle = "> Check out all of your submitted answers and view their feedback";
+
+                return View("Index", answers.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account", new { returnUrl = "/Review/MyAnswers" });
+            }
         }
 
-        public ActionResult Submit(int nR, string nC)
+        public ActionResult Submit(int aId)
         {
+            ViewBag.aId = aId;
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult Submit(SubmitViewModel model, int aId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-            return null;
+            Answer answerToUpdate = db.Answers.Find(aId);
+
+            Review reviewToInsert = new Review();
+            reviewToInsert.Rating = model.Rating;
+            reviewToInsert.Comment = model.Comment;
+            reviewToInsert.Answer = answerToUpdate;
+            reviewToInsert.AnswerID = aId;
+
+            db.Reviews.Add(reviewToInsert);
+            db.SaveChanges();
+
+            List<Review> reviews = answerToUpdate.Reviews.ToList();
+
+            int ratingCount = reviews.Count;
+            int newRating = 0;
+
+            for (int i = 0; i < ratingCount; i++)
+            {
+                int tempRating = reviews[i].Rating;
+                newRating += tempRating;
+            }
+
+            answerToUpdate.Rating = newRating / ratingCount;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Answer", "Review", new { aId = aId });
         }
 
         // GET: Review/Details/5

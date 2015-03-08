@@ -68,10 +68,8 @@ namespace Improview1.Controllers
 
                 Answer answer = new Answer();
                 answer.Number = qNo;
-                //answer.Text = fP;//"";//anT;
-                answer.FilePath = filePath;//fP;
+                answer.FilePath = filePath;
                 answer.IsRecorded = (filePath.EndsWith("webm")) ? true : false;
-                //answer.IsRecorded = false;
                 answer.UserID = User.Identity.GetUserId();
                 answer.Interview = interview;
 
@@ -106,7 +104,8 @@ namespace Improview1.Controllers
             {
                 if (!Request.Files[upload].HasVideoFile()) continue;                // Extension method checks video has been uploaded
                                                                                     // http://www.mikesdotnetting.com/article/125/asp-net-mvc-uploading-and-downloading-files
-                string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/";
+                //string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/";
+                string path = "~/uploads/";
                 HttpPostedFileBase file = Request.Files[upload];
                 if (file == null) continue;
 

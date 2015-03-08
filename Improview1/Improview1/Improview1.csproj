@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201503020158509_DisplayNames.Designer.cs">
       <DependentUpon>201503020158509_DisplayNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503080012518_ChangeReviewDNames.cs" />
+    <Compile Include="Migrations\201503080012518_ChangeReviewDNames.Designer.cs">
+      <DependentUpon>201503080012518_ChangeReviewDNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -234,6 +238,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\SubmitViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -316,6 +321,7 @@
     <Content Include="Views\Review\Edit.cshtml" />
     <Content Include="Views\Review\Index.cshtml" />
     <Content Include="Views\Review\Answer.cshtml" />
+    <Content Include="Views\Review\Submit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -367,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503020158509_DisplayNames.resx">
       <DependentUpon>201503020158509_DisplayNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503080012518_ChangeReviewDNames.resx">
+      <DependentUpon>201503080012518_ChangeReviewDNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

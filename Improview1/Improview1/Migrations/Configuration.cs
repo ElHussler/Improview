@@ -79,8 +79,8 @@ namespace Improview1.Migrations
 
             var tempAnswer = new Answer
             {
-                AnswerID = 48,
-                FilePath = "C:\\Users\\Luke\\Dropbox\\Source\\MPrepo\\Improview1\\Improview1\\uploads/125811147.webm",
+                AnswerID = 49,
+                FilePath = "~/uploads/125811147.webm",
                 Interview = tempInterview, 
                 IsRecorded=true, 
                 Reviews=null,
@@ -89,7 +89,7 @@ namespace Improview1.Migrations
                 UserID="aa07e10c-6a2d-4338-ae57-0f90dcee01b5"
             };
 
-            context.Reviews.AddOrUpdate(j => j.Comment, new Review { Rating = 2, Comment = "lololol", AnswerID = 48, Answer = tempAnswer });
+            context.Reviews.AddOrUpdate(j => j.Comment, new Review { Rating = 2, Comment = "lololol", AnswerID = 49, Answer = tempAnswer });
             context.SaveChanges();
         }
     }

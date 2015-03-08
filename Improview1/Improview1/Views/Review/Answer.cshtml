@@ -6,7 +6,7 @@
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-<script type="text/javascript">
+<script type="text/javascript">             // Disable right-clicking on video player, prevents errors
     jQuery(document).ready(function () {
         jQuery('video').bind('contextmenu', function () { return false; });
     });
@@ -18,7 +18,7 @@
     // });
 </script>
 
-<script type="text/javascript">
+<script type="text/javascript">             // Reloads video player to prevent it becoming stuck seeking on 'Play from Start' click
     function replayVideo() {
         var myVideo = document.getElementById("preview");
         myVideo.load();
@@ -36,7 +36,7 @@
             <div style="height: 375px; width: 500px;">
                 <video id="preview" poster="~/posterimage.jpg" preload="auto" height="375" width="500"
                        style="border: 1px solid rgb(15, 158, 238)">
-                    <source id="previewsource" src="~/uploads/125811147.webm" type="video/webm" />
+                    <source id="previewsource" src="@Model.FilePath" type="video/webm" /> <!--src="~/uploads/125811147.webm"-->
                 </video>
             </div>
             <button style="margin:auto" onclick="replayVideo()">Play from Start</button>
@@ -67,28 +67,8 @@
                 </table>
             </div>
 
-            @using (Html.BeginForm("Submit", "Review", new { nR = newRating, nC = newComment.Text }, FormMethod.Post))
-            {
-                <fieldset>
-                    <h4 class="lead" style="margin-top: 10px; padding-left: 5px;">> Give feedback:</h4>
-                    <div style="margin:auto; float:left; width:30%; height:50%; font-size:1.5em">
-                        <input type="radio" name="newRating" value="1" checked>1 Star
-                        <br>
-                        <input type="radio" name="newRating" value="2">2 Stars
-                        <br>
-                        <input type="radio" name="newRating" value="3" checked>3 Stars
-                        <br>
-                        <input type="radio" name="newRating" value="4">4 Stars
-                        <br>
-                        <input type="radio" name="newRating" value="5" checked>5 Stars
-                        <br><br>
-                    </div>
-                    <div style="margin:auto; float:right; width:70%; height:50%">
-                        <input name="newComment" type="text" style="font-size:1em" />
-                    </div>
-                    <input type="submit" />
-                </fieldset>
-            }
+            @Html.ActionLink("Submit Review", "Submit", "Review", new { aId = ViewBag.aId }, new { @class = "btn btn-primary" })
+
         </div>
     </div>
 </div>

@@ -151,7 +151,7 @@ namespace Improview1.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { FirstName = model.FirstName, LastName = model.LastName, UserName = model.FirstName + " " + model.LastName, Email = model.Email };
+                var user = new User { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

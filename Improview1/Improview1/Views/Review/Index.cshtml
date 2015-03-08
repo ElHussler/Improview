@@ -1,14 +1,8 @@
 ﻿@model IEnumerable<Improview1.Models.Answer>
 
-@{
-    ViewBag.Title = "Browse Answers";
-}
-
-
-
 <div class="jumbotron" style="height: 500px">
-    <h2>Browse Answers</h2>
-    <h3 class="lead" style="margin-top: 10px; padding-left: 5px;">> Choose a user's response to an interview question to view and give them feedback</h3>
+    <h2>@ViewBag.Title</h2>
+    <h3 class="lead" style="margin-top: 10px; padding-left: 5px;">@ViewBag.SubTitle</h3>
     <br />
     <table class="table">
         <thead>
