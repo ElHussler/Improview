@@ -36,7 +36,7 @@
             <div style="height: 375px; width: 500px;">
                 <video id="preview" poster="~/posterimage.jpg" preload="auto" height="375" width="500"
                        style="border: 1px solid rgb(15, 158, 238)">
-                    <source id="previewsource" src="@Model.FilePath" type="video/webm" /> <!--src="~/uploads/125811147.webm"-->
+                    <source id="previewsource" src="@Url.Content("~/uploads/" + System.IO.Path.GetFileName(Model.FilePath))" type="video/webm" /> <!--src="~/uploads/125811147.webm"-->
                 </video>
             </div>
             <button style="margin:auto" onclick="replayVideo()">Play from Start</button>

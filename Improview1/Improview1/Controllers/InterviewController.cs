@@ -111,9 +111,9 @@ namespace Improview1.Controllers
 
                 string fP = Path.Combine(path, Request.Form[0]);
 
-                file.SaveAs(fP);
-
                 Session["filePath"] = fP;
+
+                file.SaveAs(fP);
 
                 // Sample code for saving posted image to database, not using if storing on server?
                 /*string mimeType = Request.Files[upload].ContentType;

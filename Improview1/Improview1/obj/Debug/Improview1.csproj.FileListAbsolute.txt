@@ -127,3 +127,4 @@ C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.M
 C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.csproj.GenerateResource.Cache
 C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.dll
 C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.pdb
+C:\Users\Luke\Dropbox\Source\MPrepo\Improview1\Improview1\obj\Debug\Improview1.csprojResolveAssemblyReference.cache
