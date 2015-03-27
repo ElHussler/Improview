@@ -20,7 +20,11 @@ namespace Improview1.Models
         [Display(Name = "Answer Video")]
         public string FilePath { get; set; }
 
-        [Range(1, 5)]
+        public string FilePathServerAbsolute { get; set; }
+        public string FilePathServerRelative { get; set; }
+        public string FilePathAzureBlobStorage { get; set; }
+
+        [Range(0, 5)]
         [Display(Name = "Rating")]
         public int Rating { get; set; }
 

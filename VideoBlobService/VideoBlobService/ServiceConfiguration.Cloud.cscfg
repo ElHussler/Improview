@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="VideoBlobService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2014-06.2.4">
+  <Role name="WCFServiceWebRole1">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="azure" value="DefaultEndpointsProtocol=https;AccountName=shuggy;AccountKey=+2NZIZBQCAH6Vu0QyMu5ZWm2r8Abf3QVs/2F/iVigqZ77bxJnZa5GSYxfnI/sAHOZ7YllrtXCgLgZcTkDfgZvQ==" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>

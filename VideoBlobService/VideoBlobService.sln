@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "VideoBlobService", "VideoBlobService\VideoBlobService.ccproj", "{03D46795-C79B-40D4-8B39-4119BB43195A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServiceWebRole1", "WCFServiceWebRole1\WCFServiceWebRole1.csproj", "{455D4C16-946A-4DFF-B7A2-C21E971A7766}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03D46795-C79B-40D4-8B39-4119BB43195A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D46795-C79B-40D4-8B39-4119BB43195A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D46795-C79B-40D4-8B39-4119BB43195A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D46795-C79B-40D4-8B39-4119BB43195A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{455D4C16-946A-4DFF-B7A2-C21E971A7766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{455D4C16-946A-4DFF-B7A2-C21E971A7766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{455D4C16-946A-4DFF-B7A2-C21E971A7766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{455D4C16-946A-4DFF-B7A2-C21E971A7766}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

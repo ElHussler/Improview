@@ -13,7 +13,7 @@ namespace Improview1.Models
 
         [Required]
         [Display(Name = "Add Rating")]
-        [Range(1, 5)]
+        [Range(0, 5)]
         public int Rating { get; set; }
 
         [Required]
