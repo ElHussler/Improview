@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Improview.Models.Answer>
+
+<div class="jumbotron" style="height: 500px">
+    <h2>@ViewBag.Title</h2>
+    <h3 class="lead" style="margin-top: 10px; padding-left: 5px;">@ViewBag.SubTitle</h3>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FilePathServerRelative)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Interview.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Interview.Questions.First().Text)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rating)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="max-width: 10%">
+                        <img src="~/Content/posterimagesml.jpg" style="border: 1px solid rgb(15, 158, 238); height: 80px; width: 107px;"/>
+                        <!--<video src="ATUrl.Action("Answer", "Review", new {fP = item.FilePathServerRelative})" style="border: 1px solid rgb(15, 158, 238); height: 80px; width: 107px;"></video>-->
+                    </td>
+                    <td style="max-width: 20%">
+                        @Html.DisplayFor(modelItem => item.Interview.Title)
+                    </td>
+                    <td style="max-width: 50%">
+                        @Html.DisplayFor(modelItem => item.Interview.Questions.Single(e => e.Number == item.Number).Text)
+                    </td>
+                    <td style="text-align: center; max-width: 10%">
+                        <p>@Html.DisplayFor(modelItem => item.Rating)/5</p>
+                    </td>
+                    <td style="margin: auto; max-width: 10%">
+                        @Html.ActionLink("Comments", "Answer", "Review", new { aId = item.AnswerID }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

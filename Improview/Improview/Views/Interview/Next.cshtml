@@ -1,0 +1,89 @@
+﻿@model Improview.Models.Question
+
+@{
+    ViewBag.Title = "Question #" + Model.Number.ToString() + " of " + ViewBag.totalQuestions;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+
+    <!-- JQuery live(---) function allows for asynchronous loading and event handling on page. Interview div is replaced with question
+         Model data returned by controller response using JQuery's replaceWith(---) function, continuing until the last question.
+         http://ngalatalla.blogspot.co.uk/2011/11/building-dynamic-quiz-application-in.html -->
+    <script type="text/javascript">                 
+        $("#submit").live("click", function () {
+            $.get($(this), function (response) {
+                $("#interview").replaceWith($("#interview", response));
+            });
+            return false;
+        });
+    </script>
+
+    <!-- webRTC script 'RecordRTC' used for video/audio recording -->
+    <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"> </script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('video').bind('contextmenu', function () { return false; });
+        });
+    </script>
+</head>
+<body>
+    <div class="jumbotron" style="height: 480px; min-height: 100%; max-height: 100%">
+        <div id="interview" class="col-md-12" style="text-align: center;">
+            @using (Html.BeginForm("NextPost", "Interview", new { iId = ViewBag.interviewId, qNo = Model.Number }, FormMethod.Post))
+            {
+                <fieldset>
+                    <table style="width: 100%">
+                        <tr>
+                            <th style="display: none; width: 20%">Question Number</th>
+                            <td style ="text-align: left">
+                                @Html.HiddenFor(x => x.QuestionID)
+                                <h2>Question #@Html.DisplayFor(x => x.Number):</h2>
+                            </td>
+                            <th style="display: none; width: 70%">Question Text</th>
+                            <td style="text-align: left">
+                                <h2>@Model.Text</h2>
+                            </td>
+                            <th style="display: none; width: 10%">Next Question</th>
+                            <td>
+                                <input id="submit" value="Next" name="Next" type="submit" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            }
+
+            <div style="height: 380px; width: 505px;">
+                <video id="preview" controls height="375" width="500" style="border: 1px solid rgb(15, 158, 238)"></video>
+            </div>
+            
+            <button id="record" name="Record">Record</button>
+            <button id="stop" name="Stop" disabled>Stop</button>
+            <div id="container" style="padding:1em 2em; display: none;"></div>
+            <img hidden id="testImg" src="~/Content/posterimagesml.jpg" />
+        </div>
+
+        <!--<div id="interviewVid" class="col-md-6" style="text-align:center;">
+            <p>
+                <video id="preview" controls style="border: 1px solid rgb(15, 158, 238); height: 375px; width: 500px;"></video>
+            </p>
+
+            <hr />
+
+            <button id="record">Record</button>
+            <button id="stop" disabled>Stop</button>
+            <button display="none" id="delete" disabled>Delete files from Server</button>
+        </div>-->
+
+        <div id="container" style="padding:1em 2em;"></div>
+
+    </div>
+
+    <script src="@Url.Content("~/Scripts/recordRTC.js")" type="text/javascript"> </script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="32a162df-cbe3-4254-87a0-a1e443d933b2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a76c569f-a093-4897-a6ac-67a5dccb032e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -18,13 +18,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:55633/Service1.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://improviewvideoblobservice.cloudapp.net/Service1.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="db4b8b35-0316-44d2-8c41-157453ada062" SourceId="1" SourceUrl="http://localhost:55633/Service1.svc?xsd=xsd1" />
-    <MetadataFile FileName="Service1.disco" MetadataType="Disco" ID="e6ca127d-9dc2-4915-b2f9-8f71b9a5cd24" SourceId="1" SourceUrl="http://localhost:55633/Service1.svc?disco" />
-    <MetadataFile FileName="Service11.xsd" MetadataType="Schema" ID="24147399-df7b-4eb4-b07d-e00751d1d9c4" SourceId="1" SourceUrl="http://localhost:55633/Service1.svc?xsd=xsd0" />
-    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="28934485-847a-4e0a-8b97-ebacbccda79f" SourceId="1" SourceUrl="http://localhost:55633/Service1.svc?wsdl" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="0737f642-fc84-46ec-ae3e-90646f47b4d4" SourceId="1" SourceUrl="http://improviewvideoblobservice.cloudapp.net/Service1.svc?xsd=xsd0" />
+    <MetadataFile FileName="Service1.disco" MetadataType="Disco" ID="6431ac06-faba-461d-acbf-c32fcb61e079" SourceId="1" SourceUrl="http://improviewvideoblobservice.cloudapp.net/Service1.svc?disco" />
+    <MetadataFile FileName="Service11.xsd" MetadataType="Schema" ID="e4c2cb11-baa1-4f06-9201-3f2629db48e7" SourceId="1" SourceUrl="http://improviewvideoblobservice.cloudapp.net/Service1.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="ca3e1d2b-b22b-499e-8de0-984c0ed1912c" SourceId="1" SourceUrl="http://improviewvideoblobservice.cloudapp.net/Service1.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

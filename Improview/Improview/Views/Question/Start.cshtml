@@ -1,0 +1,36 @@
+﻿@model Improview.Models.Interview
+
+@{
+    ViewBag.Title = "Interview";
+}
+
+<script type="text/javascript">
+        $("#submitButton").live("click", function () {
+            $.get($(this), function (response) {
+                $("#interview").replaceWith($("#interview", response));
+            });
+            return false;
+        });
+</script>
+
+<div class="jumbotron" style="height: 500px; min-height: 100%; max-height: 100%">
+    <h1 style="text-align: center">Improview</h1>
+    <p class="lead" style="text-align: center; margin-top: 80px; margin-bottom: 80px">Start your Improview interview by clicking the button below!</p>
+    <p style="text-align: center">
+        @Html.ActionLink("Begin Interview", "Start", "Interview", null, new { @class = "btn btn-primary btn-lg" }) &raquo;
+    </p>
+</div>
+
+<div id="interview">
+    @using (Html.BeginForm("Interview", "Next"))
+    {
+        <fieldset>
+            <h2>@Model.Questions.First().Text</h2>
+            @Html.HiddenFor(x => x.Questions.First().QuestionID)
+            <p>Question #@Html.DisplayFor(x => x.Questions.First().Number)</p>
+
+            <input type="submit" value="Next" id="submitButton" />
+        </fieldset>
+    }
+
+</div>

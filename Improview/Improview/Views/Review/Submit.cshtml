@@ -1,0 +1,43 @@
+﻿@using Improview.Models
+@model SubmitViewModel
+@{
+    ViewBag.Title = "Submit Review";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="submitForm">
+            @using (Html.BeginForm("Submit", "Review", new { aId = ViewBag.aId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Rating, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        Rate 1 Star:  @Html.RadioButtonFor(m => m.Rating, 1, new { @class = "form-control" })
+                        Rate 2 Stars: @Html.RadioButtonFor(m => m.Rating, 2, new { @class = "form-control" })
+                        Rate 3 Stars: @Html.RadioButtonFor(m => m.Rating, 3, new { @class = "form-control" })
+                        Rate 4 Stars: @Html.RadioButtonFor(m => m.Rating, 4, new { @class = "form-control" })
+                        Rate 5 Stars: @Html.RadioButtonFor(m => m.Rating, 5, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Rating, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Comment, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Comment, new { @class = "form-control", @id = "commentBox" })
+                        @Html.ValidationMessageFor(m => m.Comment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

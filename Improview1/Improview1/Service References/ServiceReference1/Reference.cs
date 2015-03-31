@@ -16,16 +16,35 @@ namespace Improview1.ServiceReference1 {
     public interface IService1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SaveFile", ReplyAction="http://tempuri.org/IService1/SaveFileResponse")]
-        void SaveFile(string guid, string filename, byte[] sentFile);
+        string SaveFile(string guid, string filename, byte[] sentFile);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/SaveFile", ReplyAction="http://tempuri.org/IService1/SaveFileResponse")]
         System.IAsyncResult BeginSaveFile(string guid, string filename, byte[] sentFile, System.AsyncCallback callback, object asyncState);
         
-        void EndSaveFile(System.IAsyncResult result);
+        string EndSaveFile(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IService1Channel : Improview1.ServiceReference1.IService1, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class SaveFileCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public SaveFileCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -57,10 +76,10 @@ namespace Improview1.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> SaveFileCompleted;
+        public event System.EventHandler<SaveFileCompletedEventArgs> SaveFileCompleted;
         
-        public void SaveFile(string guid, string filename, byte[] sentFile) {
-            base.Channel.SaveFile(guid, filename, sentFile);
+        public string SaveFile(string guid, string filename, byte[] sentFile) {
+            return base.Channel.SaveFile(guid, filename, sentFile);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -69,8 +88,8 @@ namespace Improview1.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public void EndSaveFile(System.IAsyncResult result) {
-            base.Channel.EndSaveFile(result);
+        public string EndSaveFile(System.IAsyncResult result) {
+            return base.Channel.EndSaveFile(result);
         }
         
         private System.IAsyncResult OnBeginSaveFile(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -81,14 +100,15 @@ namespace Improview1.ServiceReference1 {
         }
         
         private object[] OnEndSaveFile(System.IAsyncResult result) {
-            this.EndSaveFile(result);
-            return null;
+            string retVal = this.EndSaveFile(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OnSaveFileCompleted(object state) {
             if ((this.SaveFileCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.SaveFileCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.SaveFileCompleted(this, new SaveFileCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         

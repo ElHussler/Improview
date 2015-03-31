@@ -13,7 +13,7 @@ namespace WCFServiceWebRole1
     public interface IService1
     {
         [OperationContract]
-        void SaveFile(string guid, string filename, byte[] sentFile);
+        String SaveFile(string guid, string filename, byte[] sentFile);
 
         //[OperationContract]
         //[WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Wrapped,

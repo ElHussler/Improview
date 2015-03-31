@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.FilePath)
+                    @Html.DisplayNameFor(model => model.FilePathServerRelative)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Interview.Title)
@@ -28,7 +28,7 @@
                 <tr>
                     <td style="max-width: 10%">
                         <img src="~/posterimagesml.jpg" style="border: 1px solid rgb(15, 158, 238); height: 80px; width: 107px;"/>
-                        <!--<video src="@Url.Action("Answer", "Review", new {fP = item.FilePath})" style="border: 1px solid rgb(15, 158, 238); height: 80px; width: 107px;"></video>-->
+                        <!--<video src="ATUrl.Action("Answer", "Review", new {fP = item.FilePathServerRelative})" style="border: 1px solid rgb(15, 158, 238); height: 80px; width: 107px;"></video>-->
                     </td>
                     <td style="max-width: 20%">
                         @Html.DisplayFor(modelItem => item.Interview.Title)

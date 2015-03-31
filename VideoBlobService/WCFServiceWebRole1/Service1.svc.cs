@@ -19,7 +19,7 @@ namespace WCFServiceWebRole1
 {
     public class Service1 : IService1
     {
-        public void SaveFile(string guid, string filename, byte[] sentFile)
+        public String SaveFile(string guid, string filename, byte[] sentFile)
         {
             // Use live Azure storage account set up as a connectionString named 'Azure'
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("azure"));
@@ -51,6 +51,8 @@ namespace WCFServiceWebRole1
 
             // Get uri of file stored as blob
             String blobUrl = blockBlob.Uri.ToString();
+
+            return blobUrl;
         }
     }
 }

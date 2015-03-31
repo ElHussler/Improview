@@ -1,0 +1,20 @@
+﻿@model Improview.Models.Interview
+
+@{
+    ViewBag.Title = "Complete!";
+}
+
+<div class="jumbotron" style="height: 500px; min-height: 100%; max-height: 100%; text-align: center">
+    
+    <h2>Congratulations! You made it through your interview for</h2>
+    <br />
+    <h1>@Model.Title</h1>
+    <br />
+    <h3>@Model.Description</h3>
+    <br />
+    <h2>Would you like to submit your responses for peer review?</h2>
+    <br />
+    @Html.ActionLink("Yes", "Submit", "Review", new { @class = "btn btn-primary btn-lg" })
+    @Html.ActionLink("No", "Index", "Home", new { @class = "btn btn-primary btn-lg" })
+
+</div>

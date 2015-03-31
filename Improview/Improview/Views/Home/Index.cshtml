@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-5">
+            <h1>Improview <sup>&alpha;</sup></h1>
+        </div>
+        <div class="col-md-7" style="float:right; padding-top:1em;">
+            <p>
+                > Practice your interview technique<br />
+                > Record and store video responses for peer review<br />
+                > Get fast, concise, and objective performance feedback
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="text-align: center">
+    <div class="col-md-4">
+        <h2>Start one of our practice interviews</h2>
+        <p>Sign up to take your first 'Improview' interview, no recruitment agents required!</p>
+        @Html.ActionLink("Start Interview", "Index", "Interview", null, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h2>View and rate answers by other users</h2>
+        <p>See how others have responded to questions, rate their answers, and comment to give them feedback.</p>
+        @Html.ActionLink("Review Answers", "Index", "Review", null, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h2>Check for feedback on your answers</h2>
+        <p>Check out the ratings and comments users and professionals have given in response to your answers!</p>
+        @Html.ActionLink("View Feedback", "MyAnswers", "Review", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+<hr />

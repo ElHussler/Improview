@@ -18,10 +18,10 @@ namespace Improview1.Models
         public bool IsRecorded { get; set; }
 
         [Display(Name = "Answer Video")]
-        public string FilePath { get; set; }
+        public string FilePathServerRelative { get; set; }
 
         public string FilePathServerAbsolute { get; set; }
-        public string FilePathServerRelative { get; set; }
+        
         public string FilePathAzureBlobStorage { get; set; }
 
         [Range(0, 5)]

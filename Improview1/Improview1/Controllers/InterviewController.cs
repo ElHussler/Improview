@@ -68,16 +68,22 @@ namespace Improview1.Controllers
                 ViewBag.interviewId = iId;
                 Interview interview = db.Interviews.Find(iId);
 
-                string filePath = Session["filePath"].ToString();
+                string filePathRelative = Session["filePathRelative"].ToString();
+                string filePathAbsolute = Session["filePathAbsolute"].ToString();
+                string filePathAzure = Session["filePathAzure"].ToString();
 
                 Answer answer = new Answer();
                 answer.Number = qNo;
-                answer.FilePath = filePath;
-                answer.IsRecorded = (filePath.EndsWith("webm")) ? true : false;
+                answer.FilePathServerRelative = filePathRelative;
+                answer.FilePathServerAbsolute = filePathAbsolute;
+                answer.FilePathAzureBlobStorage = filePathAzure;
+                answer.IsRecorded = (filePathRelative.EndsWith("webm")) ? true : false;
                 answer.UserID = User.Identity.GetUserId();
                 answer.Interview = interview;
 
-                Session.Remove("filePath");
+                Session.Remove("filePathRelative");
+                Session.Remove("filePathAbsolute");
+                Session.Remove("filePathAzure");
 
                 try
                 {
@@ -121,27 +127,27 @@ namespace Improview1.Controllers
             {
                 if (!Request.Files[upload].HasVideoFile()) continue;                // Extension method checks video has been uploaded
                                                                                     // http://www.mikesdotnetting.com/article/125/asp-net-mvc-uploading-and-downloading-files
-
-                string fileName = "";
-                string relativeServerVideoFolder = "";
+                string videoFileName = "";
+                string absoluteServerVideoFolder = AppDomain.CurrentDomain.BaseDirectory + "uploads/";
+                string relativeServerVideoFolder = Server.MapPath("~/uploads/");
+                string absoluteVideoPath = "";
                 string relativeVideoPath = "";
                 HttpPostedFileBase videoFile = null;
 
                 // Upload video file to server
                 try
                 {
-                    //string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/";
-                    //string path = "~/uploads/";
                     videoFile = Request.Files[upload];
-
                     if (videoFile == null) continue;
 
-                    //string fP = Path.Combine(path, Request.Form[0]);
-                    fileName = Request.Form[0];
-                    relativeServerVideoFolder = Server.MapPath("~/uploads/");
-                    relativeVideoPath = Path.Combine(relativeServerVideoFolder, fileName);
+                    videoFileName = Request.Form[0];
+                    
+                    relativeVideoPath = Path.Combine(relativeServerVideoFolder, videoFileName);
+                    absoluteVideoPath = Path.Combine(absoluteServerVideoFolder, videoFileName);
 
-                    Session["filePath"] = relativeVideoPath;
+                    Session["filePathRelative"] = relativeVideoPath;
+                    Session["filePathAbsolute"] = absoluteVideoPath;
+
                     videoFile.SaveAs(relativeVideoPath);
 
                     //Session["filePath"] = fP;
@@ -152,8 +158,15 @@ namespace Improview1.Controllers
                     Console.WriteLine(e);
                 }
 
-                // Post video to Cloud Service set up to save it in Azure's BLOB storage
-                PostVideoToCloudService(relativeVideoPath);
+                try
+                {
+                    // Post video to Cloud Service set up to save it in Azure's BLOB storage
+                    PostVideoToCloudService(relativeVideoPath, videoFileName);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
 
                 // Sample code for saving posted image to database, not using if storing on server?
                 /*string mimeType = Request.Files[upload].ContentType;
@@ -179,7 +192,7 @@ namespace Improview1.Controllers
             return Json(Request.Form[0]);
         }
 
-        public void PostVideoToCloudService(string filePath)
+        public async void PostVideoToCloudService(string filePath, string fileName)
         {
             // https://social.msdn.microsoft.com/Forums/en-US/8b5d4086-f468-419a-805b-c553105d183a/how-to-convert-video-to-bytearray-in-c?forum=windowsmobiledev
             byte[] videoBytes = VideoToByteArray(filePath);
@@ -188,7 +201,11 @@ namespace Improview1.Controllers
             // create new serviceclient instance for our cloud storage service and upload our data using AddImageAsync
             if (videoBytes != null)
             {
-                RunServiceCode(storageGuid, "ImproviewVideoFileUploadTest1", videoBytes);
+                // Increased request size in web.config to enable potentially large video files to be uploaded
+                Service1Client svc = new Service1Client();
+                svc.SaveFileCompleted += new EventHandler<SaveFileCompletedEventArgs>(svc_SaveFileCompleted);
+                string filePathAzure = await Task.Run(() => svc.SaveFile(storageGuid, fileName, videoBytes));
+                Session["filePathAzure"] = filePathAzure;
             }
             else
             {
@@ -226,25 +243,32 @@ namespace Improview1.Controllers
             FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             BinaryReader br = new BinaryReader(fs);
 
-            using (fs)
+            try
             {
-                int chunkSize = 1024; // 1KB video chunks
-                byteArray = br.ReadBytes(chunkSize);
-                br.Close();
-                fs.Close();
+                byteArray = br.ReadAllBytes();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: " + ex.ToString());
             }
 
+            //int chunkSize = 1024; // 1KB video chunks
+            //byteArray = br.ReadBytes(chunkSize);
+            br.Close();
+            
             return byteArray;
         }
 
-        public async void RunServiceCode(string storageGuid, string fileName, byte[] videoBytes)
+        void svc_SaveFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            // Increased request size in web.config to enable potentially large video files to be uploaded
-            Service1Client svc = new Service1Client();
-            svc.SaveFileCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(svc_SaveFileCompleted);
-            await Task.Run(() => svc.SaveFileAsync(storageGuid, "ImproviewVideoFileUploadTest1", videoBytes));
-            //svc.SaveImageCompleted += new EventHandler<SaveImageCompletedEventArgs>(svc_SaveImageCompleted);
-            //await Task.Run(() => svc.SaveImageAsync(storageGuid, "ImproviewVideoFileUploadTest1", videoBytes));
+            if (e.Error == null)
+            {
+                Console.WriteLine("S'all good man!");
+            }
+            else
+            {
+                Console.WriteLine("An error occured:" + e.Error);
+            }
         }
 
         /*public void SaveImageToBlobStorage()
@@ -270,19 +294,6 @@ namespace Improview1.Controllers
             svc.SaveImageCompleted += new EventHandler<SaveImageCompletedEventArgs>(svc_SaveImageCompleted);
             svc.SaveImageAsync(storageGuid, "ImproviewImageUploadTest1", byteArray);
         }*/
-
-        // code to launch when image data has been uploaded to server, can return error so handle it
-        void svc_SaveFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            if (e.Error == null)
-            {
-                Console.WriteLine("S'all good man!");
-            }
-            else
-            {
-                Console.WriteLine("An error occured:" + e.Error);
-            }
-        }
 
         [HttpPost]
         public ActionResult DeleteFile()
