@@ -13,13 +13,35 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-#commentBox {
-    width: 200px;
-    height: 150px;
+#reviewLabel {
+    float:left;
+    width:32%;
+    text-align:left;
+}
+
+.parentDivCenter {
+    text-align:center;
+}
+
+.childElementCenter {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#btnChildCenter {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#commentBox { 
+    text-align:left;
+    width: 400px;
+    padding-bottom:10px;
+    height:100%
 }
 
 body {
-  margin: 0;
+    margin: 0;
 }
 article,
 aside,

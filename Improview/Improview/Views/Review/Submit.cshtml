@@ -10,25 +10,40 @@
         <section id="submitForm">
             @using (Html.BeginForm("Submit", "Review", new { aId = ViewBag.aId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Rating, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        Rate 1 Star:  @Html.RadioButtonFor(m => m.Rating, 1, new { @class = "form-control" })
-                        Rate 2 Stars: @Html.RadioButtonFor(m => m.Rating, 2, new { @class = "form-control" })
-                        Rate 3 Stars: @Html.RadioButtonFor(m => m.Rating, 3, new { @class = "form-control" })
-                        Rate 4 Stars: @Html.RadioButtonFor(m => m.Rating, 4, new { @class = "form-control" })
-                        Rate 5 Stars: @Html.RadioButtonFor(m => m.Rating, 5, new { @class = "form-control" })
+                <div class="form-group" style="width: 480px">
+                    @Html.LabelFor(m => m.Rating, new { @class = "col-md-2 control-label", @id = "reviewLabel" })
+                    <div style="height: 70px; width: 300px;">
+                        <table style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <td style="padding-left:10px; padding-right:10px">1</td>
+                                    <td style="padding-left:10px; padding-right:10px">2</td>
+                                    <td style="padding-left:10px; padding-right:10px">3</td>
+                                    <td style="padding-left:10px; padding-right:10px">4</td>
+                                    <td style="padding-left:10px; padding-right:10px">5</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@Html.RadioButtonFor(m => m.Rating, 1, new { @class = "form-control" })</td>
+                                    <td>@Html.RadioButtonFor(m => m.Rating, 2, new { @class = "form-control" })</td>
+                                    <td>@Html.RadioButtonFor(m => m.Rating, 3, new { @class = "form-control" })</td>
+                                    <td>@Html.RadioButtonFor(m => m.Rating, 4, new { @class = "form-control" })</td>
+                                    <td>@Html.RadioButtonFor(m => m.Rating, 5, new { @class = "form-control" })</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         @Html.ValidationMessageFor(m => m.Rating, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Comment, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
+                <div class="form-group" style="height: 60px; width: 480px;">
+                    @Html.LabelFor(m => m.Comment, new { @class = "col-md-2 control-label", @id = "reviewLabel" })
+                    <div style="float: right; height:100%; width: 68%">
                         @Html.TextBoxFor(m => m.Comment, new { @class = "form-control", @id = "commentBox" })
                         @Html.ValidationMessageFor(m => m.Comment, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-top:30px">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Submit" class="btn btn-default" />
                     </div>

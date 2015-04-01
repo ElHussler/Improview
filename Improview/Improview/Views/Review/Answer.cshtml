@@ -31,29 +31,39 @@
     <h2 style="margin-top: -15px">Review Answer</h2>
     <h3 class="lead" style="margin-top: 10px; padding-left: 5px;">> View existing feedback and add your own below!</h3>
 
-    <div class="answerContainer" style="width:100%; height:100%">
-        <div style="padding: 5px; width: 50%; height:70%; float:left; margin:auto; border: 1px solid red">
-            <div style="height: 375px; width: 500px;">
-                <video id="preview" poster="~/Content/posterimage.jpg" preload="auto" height="375" width="500"
-                       style="border: 1px solid rgb(15, 158, 238)">
-                    <source id="previewsource" src="@Url.Content(/*"~/Uploads/" + */System.IO.Path.GetFileName(Model.FilePathServerRelative))" type="video/webm" /> <!--src="~/Uploads/125811147.webm"-->
+    <div class="answerContainer" style="width:100%; height:80%">
+        <div style="padding: 5px; width: 50%; height:85%; float:left; margin:auto; text-align:center">
+            <div style="height: 325px; width: 433px; margin-left:auto; margin-right: auto">
+                <video id="preview" poster="~/Content/posterimage.jpg" preload="auto" height="325" width="433"
+                       style="margin-left: auto; margin-right: auto; border: 1px solid rgb(15, 158, 238)">
+                    <source id="previewsource" src="@Url.Content("~/Uploads/" + Path.GetFileName(Model.FilePathServerRelative))" type="video/webm" /> <!--~/Uploads/169880863.webm-->
                 </video>
             </div>
-            <button style="margin:auto" onclick="replayVideo()">Play from Start</button>
+            <button style="margin-left:auto; margin-right:auto" onclick="replayVideo()">Play from Start</button>
         </div>
-        <div style="padding: 5px; width: 50%; height:70%; float:right; margin:auto; border: 1px solid red">
+        <div style="padding: 5px; width: 50%; height:85%; float:right; margin:auto">
 
-            <h4 class="lead" style="margin-top: 10px; padding-left: 5px;">> Existing feedback:</h4>
-            <div style="margin:auto; float:left; width:30%; height:50%">
+            <div style="float:left; margin:auto; width:50%; text-align: left">
+                <h4 class="lead" style="margin-top: 10px; padding-left: 5px;">> Add feedback:</h4>
+            </div>
+            <div style="padding-top: 5px; float:right; margin:auto; width:50%; text-align:left">
+                @Html.ActionLink("Review this Answer", "Submit", "Review", new { aId = ViewBag.aId }, new { @class = "btn btn-primary" })
+            </div>
+            <div style="float:left; margin:auto; width:100%; text-align: left">
+                <h4 class="lead" style="margin-top: 10px; padding-left: 5px;">> Existing feedback:</h4>
+            </div>            
+            <div class="parentDivCenter" style="margin:auto; float:left; width:30%; height:35px">
+                <p class="childElementCenter" style="font-size:1.5em; text-align:center">Rating:</p>
+            </div>
+            <div class="parentDivCenter" style="margin:auto; float:right; width:70%; height:35px">
+                <p class="childElementCenter" style="font-size:1.5em; text-align:center">Comments:</p>
+            </div>
+            <div style="margin:auto; float:left; width:30%; height:70%">
                 <p style="font-size:1.5em; text-align:center">@Html.DisplayFor(model => model.Rating)/5</p>
             </div>
-            <div style="margin:auto; float:right; width:70%; height:50%">
-                <table class="table" style="padding: 5px; border: 1px solid red; font-size:0.5em">
-                    <thead>
-                        <tr>
-                            <th></th>
-                        </tr>
-                    </thead>
+            <div style="margin:auto; float:right; width:70%; height:70%; overflow-y:scroll">
+                <table class="table" style="padding: 5px; font-size:1em">
+                    <thead><tr><th></th></tr></thead>
                     <tbody>
                         @foreach (var item in Model.Reviews)
                         {
@@ -66,9 +76,6 @@
                     </tbody>
                 </table>
             </div>
-
-            @Html.ActionLink("Submit Review", "Submit", "Review", new { aId = ViewBag.aId }, new { @class = "btn btn-primary" })
-
         </div>
     </div>
 </div>

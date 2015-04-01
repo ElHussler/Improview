@@ -17,6 +17,7 @@ using System.Data.SqlClient;
 using System.Data.Entity.Validation;
 //using Improview.ServiceReference1;
 using System.Threading.Tasks;
+using Improview.ServiceReference1;
 
 namespace Improview.Controllers
 {
@@ -121,7 +122,7 @@ namespace Improview.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostRecordedAudioVideo()
+        public async Task PostRecordedAudioVideo()
         {
             foreach (string upload in Request.Files)
             {
@@ -161,38 +162,17 @@ namespace Improview.Controllers
                 try
                 {
                     // Post video to Cloud Service set up to save it in Azure's BLOB storage
-                    PostVideoToCloudService(relativeVideoPath, videoFileName);
+                    await PostVideoToCloudService(relativeVideoPath, videoFileName);
+                    EnableNextButton();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
                 }
-
-                // Sample code for saving posted image to database, not using if storing on server?
-                /*string mimeType = Request.Files[upload].ContentType;
-                Stream fileStream = Request.Files[upload].InputStream;
-                string fileName = Path.GetFileName(Request.Files[upload].FileName);
-                int fileLength = Request.Files[upload].ContentLength;
-                byte[] fileData = new byte[fileLength];
-                fileStream.Read(fileData, 0, fileLength);
-
-                const string connect = @"Server=.\SQLExpress;Database=FileTest;Trusted_Connection=True;";
-                using (var conn = new SqlConnection(connect))
-                {
-                    var qry = "INSERT INTO FileStore (FileContent, MimeType, FileName) VALUES (@FileContent, @MimeType, @FileName)";
-                    var cmd = new SqlCommand(qry, conn);
-                    cmd.Parameters.AddWithValue("@FileContent", fileData);
-                    cmd.Parameters.AddWithValue("@MimeType", mimeType);
-                    cmd.Parameters.AddWithValue("@FileName", fileName);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }*/
             }
-
-            return Json(Request.Form[0]);
         }
 
-        public async void PostVideoToCloudService(string filePath, string fileName)
+        public async Task PostVideoToCloudService(string filePath, string fileName)
         {
             // https://social.msdn.microsoft.com/Forums/en-US/8b5d4086-f468-419a-805b-c553105d183a/how-to-convert-video-to-bytearray-in-c?forum=windowsmobiledev
             byte[] videoBytes = VideoToByteArray(filePath);
@@ -202,10 +182,10 @@ namespace Improview.Controllers
             if (videoBytes != null)
             {
                 // Increased request size in web.config to enable potentially large video files to be uploaded
-                /*Service1Client svc = new Service1Client();
+                Service1Client svc = new Service1Client();
                 svc.SaveFileCompleted += new EventHandler<SaveFileCompletedEventArgs>(svc_SaveFileCompleted);
-                string filePathAzure = await Task.Run(() => svc.SaveFile(storageGuid, fileName, videoBytes));*/
-                Session["filePathAzure"] = "lololol"; //filePathAzure;
+                string filePathAzure = await Task.Run(() => svc.SaveFile(storageGuid, fileName, videoBytes));
+                Session["filePathAzure"] = filePathAzure;
                 Console.WriteLine("Testing");
             }
             else
@@ -258,6 +238,11 @@ namespace Improview.Controllers
             br.Close();
             
             return byteArray;
+        }
+
+        public void EnableNextButton()
+        {
+            
         }
 
         void svc_SaveFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
