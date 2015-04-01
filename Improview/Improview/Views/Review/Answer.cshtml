@@ -1,9 +1,5 @@
 ﻿@model Improview.Models.Answer
 
-@{
-    ViewBag.Title = "Review Answer";
-}
-
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 <script type="text/javascript">             // Disable right-clicking on video player, prevents errors
@@ -36,7 +32,10 @@
             <div style="height: 325px; width: 433px; margin-left:auto; margin-right: auto">
                 <video id="preview" poster="~/Content/posterimage.jpg" preload="auto" height="325" width="433"
                        style="margin-left: auto; margin-right: auto; border: 1px solid rgb(15, 158, 238)">
-                    <source id="previewsource" src="@Url.Content("~/Uploads/" + Path.GetFileName(Model.FilePathServerRelative))" type="video/webm" /> <!--~/Uploads/169880863.webm-->
+                    <source id="previewsource" src="@Url.Content(Model.FilePathAzureBlobStorage)" type="video/webm" />
+                    <!--Url.Content(Path.GetFullPath(Model.FilePathAzureBlobStorage))-->
+                    <!--Url.Content("~/Uploads/" + Path.GetFileName(Model.FilePathServerRelative))-->
+                    <!--~/Uploads/169880863.webm-->
                 </video>
             </div>
             <button style="margin-left:auto; margin-right:auto" onclick="replayVideo()">Play from Start</button>

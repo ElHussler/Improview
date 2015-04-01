@@ -38,6 +38,7 @@ namespace Improview.Controllers
 
         public ActionResult Answer(int aId)
         {
+            ViewBag.Title = "Review Answer";
             var answer = db.Answers.Include(r => r.Reviews).Single(a => a.AnswerID == aId);
             ViewBag.aId = aId;
             return View(answer);
@@ -64,6 +65,7 @@ namespace Improview.Controllers
 
         public ActionResult Submit(int aId)
         {
+            ViewBag.Title = "Add Review";
             ViewBag.aId = aId;
             return View();
         }

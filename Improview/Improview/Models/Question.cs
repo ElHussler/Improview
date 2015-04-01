@@ -14,7 +14,7 @@ namespace Improview.Models
 
         [Required]
         [Display(Name = "Question Text")]
-        [StringLength(100, MinimumLength = 1)]
+        [StringLength(255, MinimumLength = 1)]
         public string Text { get; set; }
 
         [Range(1, 15)]

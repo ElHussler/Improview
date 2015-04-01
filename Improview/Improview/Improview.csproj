@@ -201,6 +201,10 @@
     <Compile Include="Migrations\201503310112233_InitialCreate.Designer.cs">
       <DependentUpon>201503310112233_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504012122154_IncQuTextLength.cs" />
+    <Compile Include="Migrations\201504012122154_IncQuTextLength.Designer.cs">
+      <DependentUpon>201504012122154_IncQuTextLength.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -260,9 +264,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Uploads\141151140.webm" />
-    <Content Include="Uploads\161314847.webm" />
-    <Content Include="Uploads\169880863.webm" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -320,6 +321,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -333,6 +335,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503310112233_InitialCreate.resx">
       <DependentUpon>201503310112233_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504012122154_IncQuTextLength.resx">
+      <DependentUpon>201504012122154_IncQuTextLength.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

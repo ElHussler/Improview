@@ -12,14 +12,14 @@
     <!-- JQuery live(---) function allows for asynchronous loading and event handling on page. Interview div is replaced with question
          Model data returned by controller response using JQuery's replaceWith(---) function, continuing until the last question.
          http://ngalatalla.blogspot.co.uk/2011/11/building-dynamic-quiz-application-in.html -->
-    <script type="text/javascript">                 
+    @*<script type="text/javascript">                 
         $("#submit").live("click", function () {
             $.get($(this), function (response) {
                 $("#interview").replaceWith($("#interview", response));
             });
             return false;
         });
-    </script>
+    </script>*@
 
     <!-- webRTC script 'RecordRTC' used for video/audio recording -->
     <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"> </script>
@@ -32,37 +32,41 @@
     </script>
 </head>
 <body>
-    <div class="jumbotron" style="height: 480px; min-height: 100%; max-height: 100%">
+    <div class="jumbotron" style="height: 560px; min-height: 100%; max-height: 100%; margin-bottom:0px">
         <div id="interview" class="col-md-12" style="text-align: center;">
-            @using (Html.BeginForm("NextPost", "Interview", new { iId = ViewBag.interviewId, qNo = Model.Number }, FormMethod.Post))
-            {
-                <fieldset>
-                    <table style="width: 100%">
-                        <tr>
-                            <th style="display: none; width: 20%">Question Number</th>
-                            <td style ="text-align: left">
-                                @Html.HiddenFor(x => x.QuestionID)
-                                <h2>Question #@Html.DisplayFor(x => x.Number):</h2>
-                            </td>
-                            <th style="display: none; width: 70%">Question Text</th>
-                            <td style="text-align: left">
-                                <h2>@Model.Text</h2>
-                            </td>
-                            <th style="display: none; width: 10%">Next Question</th>
-                            <td>
-                                <input id="submit" value="Next" name="Next" type="submit" />
-                            </td>
-                        </tr>
-                    </table>
-                </fieldset>
-            }
-
-            <div style="height: 380px; width: 505px;">
-                <video id="preview" controls height="375" width="500" style="border: 1px solid rgb(15, 158, 238)"></video>
+            <div>
+                @using (Html.BeginForm("NextPost", "Interview", new { iId = ViewBag.interviewId, qNo = Model.Number }, FormMethod.Post))
+                {
+                    <fieldset>
+                        <div style="float:right; margin-left:auto; margin-right:auto; width:25%; padding-top:0px; text-align:center; margin-top:-20px">
+                            <input id="submit" type="submit" name="Next" value="Next Question" style="text-align:center; margin-top:0px;">
+                        </div>
+                        <table style="width: 100%">
+                            <tr>
+                                <th style="display: none; width: 100%">Question Number</th>
+                                <td style="width: 100%; text-align: center">
+                                    @Html.HiddenFor(x => x.QuestionID)
+                                    <h3 style="margin-top:-20px">Question #@Html.DisplayFor(x => x.Number):</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="display: none; width: 100%">Question Text</th>
+                                <td style="text-align: center">
+                                    <h2 style="height:80px; margin-bottom:0px">@Model.Text</h2>
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                }
             </div>
-            
-            <button id="record" name="Record">Record</button>
-            <button id="stop" name="Stop" disabled>Stop</button>
+            <div style="float:left; height: 380px; width: 75%">
+                <video id="preview" controls height="375" width="500"
+                       style="float:right; border:1px solid rgb(15, 158, 238)"></video>
+            </div>            
+            <div style="float:right; width:25%">
+                <button id="record" name="Record">Record</button>
+                <button id="stop" name="Stop" disabled>Stop</button>
+            </div>
             <div id="container" style="padding:1em 2em; display: none;"></div>
             <img hidden id="testImg" src="~/Content/posterimagesml.jpg" />
         </div>

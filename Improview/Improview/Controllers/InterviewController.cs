@@ -124,6 +124,7 @@ namespace Improview.Controllers
         [HttpPost]
         public async Task PostRecordedAudioVideo()
         {
+            ViewBag.isVideoPosted = false;
             foreach (string upload in Request.Files)
             {
                 if (!Request.Files[upload].HasVideoFile()) continue;                // Extension method checks video has been uploaded
@@ -149,7 +150,7 @@ namespace Improview.Controllers
                     Session["filePathRelative"] = relativeVideoPath;
                     Session["filePathAbsolute"] = absoluteVideoPath;
 
-                    videoFile.SaveAs(relativeVideoPath);
+                    videoFile.SaveAs(absoluteVideoPath);
 
                     //Session["filePath"] = fP;
                     //file.SaveAs(fP);
@@ -163,7 +164,7 @@ namespace Improview.Controllers
                 {
                     // Post video to Cloud Service set up to save it in Azure's BLOB storage
                     await PostVideoToCloudService(relativeVideoPath, videoFileName);
-                    EnableNextButton();
+                    ViewBag.isVideoPosted = true;
                 }
                 catch (Exception ex)
                 {
@@ -186,7 +187,6 @@ namespace Improview.Controllers
                 svc.SaveFileCompleted += new EventHandler<SaveFileCompletedEventArgs>(svc_SaveFileCompleted);
                 string filePathAzure = await Task.Run(() => svc.SaveFile(storageGuid, fileName, videoBytes));
                 Session["filePathAzure"] = filePathAzure;
-                Console.WriteLine("Testing");
             }
             else
             {
@@ -294,6 +294,7 @@ namespace Improview.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                ViewBag.Title = "Complete!";
                 Interview interview = db.Interviews.Find(iId);
                 return View(interview);
             }
