@@ -17,6 +17,7 @@ function PostBlob(blob, fileType, fileName) {
 
     // POST the Blob using XHR2
     xhr('/Interview/PostRecordedAudioVideo', formData, progress, percentage, function (fName) {
+        
         container.appendChild(document.createElement('hr'));
         var mediaElement = document.createElement(fileType);
 

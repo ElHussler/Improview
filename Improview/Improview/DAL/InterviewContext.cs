@@ -10,9 +10,7 @@ namespace Improview.DAL
 {
     public class InterviewContext : ApplicationDbContext
     {
-        public InterviewContext()
-        {
-        }
+        public InterviewContext() {}
         
         public DbSet<Interview> Interviews { get; set; }
         public DbSet<Question> Questions { get; set; }

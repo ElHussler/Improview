@@ -8,7 +8,9 @@
 <div class="row">
     <div class="col-md-8">
         <section id="submitForm">
-            @using (Html.BeginForm("Submit", "Review", new { aId = ViewBag.aId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            <!--Form posts rating and review data to 'Review' controller for processing-->
+            @using (Html.BeginForm("Submit", "Review", new { aId = ViewBag.aId }, 
+                    FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 <div class="form-group" style="width: 480px">
                     @Html.LabelFor(m => m.Rating, new { @class = "col-md-2 control-label", @id = "reviewLabel" })

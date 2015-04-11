@@ -179,12 +179,12 @@ namespace Improview.Controllers
             byte[] videoBytes = VideoToByteArray(filePath);
             string storageGuid = User.Identity.GetUserId();
 
-            // create new serviceclient instance for our cloud storage service and upload our data using AddImageAsync
             if (videoBytes != null)
             {
-                // Increased request size in web.config to enable potentially large video files to be uploaded
+                // Increased request size in web.config to enable potentially large video file uploads
                 Service1Client svc = new Service1Client();
                 svc.SaveFileCompleted += new EventHandler<SaveFileCompletedEventArgs>(svc_SaveFileCompleted);
+                // Get video BLOB file path returned by running 'SaveFile' (on a separate thread)
                 string filePathAzure = await Task.Run(() => svc.SaveFile(storageGuid, fileName, videoBytes));
                 Session["filePathAzure"] = filePathAzure;
             }
@@ -192,29 +192,6 @@ namespace Improview.Controllers
             {
                 Console.WriteLine("Byte array empty");
             }
-
-            //byte[] byteArray = null;
-            //System.IO.FileStream fs = new System.IO.FileStream("whatever.vmv", System.IO.FileMode.CreateNew);
-            //fs.Write(byteArray, 0, byteArray.Length);
-            //fs.Close();
-
-            //Stream videoStream = Application.GetResourceStream(new Uri(@"/VideoUpload;component/test.mp4", UriKind.Relative)).Stream;
-
-            //byte[] videoBytes = new byte[videoStream.Length];
-            //videoStream.Read(videoBytes, 0, (int)videoStream.Length);
-            //videoStream.Close();
-
-            //byte[] byteArray = null;
-            //// Convert the byte array to wav file
-            //using (Stream stream = new MemoryStream(byteArray))
-            //{
-            //    // http://msdn.microsoft.com/en-us/library/ms143770%28v=VS.100%29.aspx
-            //    System.Media.SoundPlayer myPlayer = new System.Media.SoundPlayer(stream);
-            //    myPlayer.Play();
-            //}
-            //System.Media.SoundPlayer myPlayer2 = new System.Media.SoundPlayer(myfile);
-            //myPlayer2.Stream = new MemoryStream();
-            //myPlayer2.Play();
         }
 
         public byte[] VideoToByteArray(string filePath)
@@ -233,61 +210,9 @@ namespace Improview.Controllers
                 Console.WriteLine("Exception: " + ex.ToString());
             }
 
-            //int chunkSize = 1024; // 1KB video chunks
-            //byteArray = br.ReadBytes(chunkSize);
             br.Close();
             
             return byteArray;
-        }
-
-        public void EnableNextButton()
-        {
-            
-        }
-
-        void svc_SaveFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            if (e.Error == null)
-            {
-                Console.WriteLine("S'all good man!");
-            }
-            else
-            {
-                Console.WriteLine("An error occured:" + e.Error);
-            }
-        }
-
-        /*public void SaveImageToBlobStorage()
-        {
-            // create new writeable image and set it's value to our image on screen
-            WriteableBitmap bmp = new WriteableBitmap();
-            
-            // create new byte array and read our image soure into it;
-            byte[] byteArray = new byte[4096];
-
-            using (MemoryStream stream = new MemoryStream())
-            {
-                bmp.SaveJpeg(stream, bmp.PixelWidth, bmp.PixelHeight, 0, 60);
-                byteArray = stream.ToArray();
-            }
-
-            // set values for uploading to cloud database for YOUR UNIQUE guid, and long/lat/description/category if applicable
-            string storageGuid = User.Identity.GetUserId();
-            Guid storageId = Guid.Parse(storageGuid);
-
-            // create new serviceclient instance for our cloud storage service and upload our data using AddImageAsync
-            Service1Client svc = new Service1Client();
-            svc.SaveImageCompleted += new EventHandler<SaveImageCompletedEventArgs>(svc_SaveImageCompleted);
-            svc.SaveImageAsync(storageGuid, "ImproviewImageUploadTest1", byteArray);
-        }*/
-
-        [HttpPost]
-        public ActionResult DeleteFile()
-        {
-            var fileUrl = AppDomain.CurrentDomain.BaseDirectory + "Uploads/" + Request.Form["delete-file"];
-            new FileInfo(fileUrl + ".wav").Delete();
-            new FileInfo(fileUrl + ".webm").Delete();
-            return Json(true);
         }
 
         public ActionResult Finish(int iId)
@@ -302,6 +227,27 @@ namespace Improview.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+        }
+
+        void svc_SaveFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                Console.WriteLine("Save Complete");
+            }
+            else
+            {
+                Console.WriteLine("An error occured:" + e.Error);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteFile()
+        {
+            var fileUrl = AppDomain.CurrentDomain.BaseDirectory + "Uploads/" + Request.Form["delete-file"];
+            new FileInfo(fileUrl + ".wav").Delete();
+            new FileInfo(fileUrl + ".webm").Delete();
+            return Json(true);
         }
 
         // GET: Interview/Details/5

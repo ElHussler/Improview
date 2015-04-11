@@ -33,14 +33,12 @@ namespace WCFServiceWebRole1
             // Create the container if one doesnt already exist with the guid
             container.CreateIfNotExists();
 
-            // Set access permission of container to 'public' (could use advanced shared access keys for security)
+            // Set access permission of container to 'public'
             BlobContainerPermissions containerPermissions = new BlobContainerPermissions();
             containerPermissions.PublicAccess = BlobContainerPublicAccessType.Container;
             container.SetPermissions(containerPermissions);
 
-            // MAY NEED TO WORK WITH BLOCK UPLOAD AND COMMIT??? ONCE ALL BYTEARRAY CHUNKS UPLOADED????
-
-            // Retrieve a blobname reference for new video, create 'answervideos' directory in container
+            // Retrieve a blobname reference for new video, creating or using 'answervideos' directory in container
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(string.Format("{0}/{1}", "answervideos", filename));
 
             // Create or overwrite the blob with file data using stream constructed with posted byte array
